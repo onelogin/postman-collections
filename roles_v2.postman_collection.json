@@ -1,0 +1,497 @@
+{
+	"info": {
+		"_postman_id": "ab0f7532-7c4a-4be7-861c-b6ab71fafa0f",
+		"name": "OneLogin Roles API",
+		"description": "The API for managing the Roles resource in OneLogin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"<name of role>\",\n    \"apps\": [\"<app_id_1>\", \"<app_id_2>\"],\n    \"users\": [\"<user_id_1>\", \"<user_id_2>\"],\n    \"admins\": [\"<user_id_1>\", \"<user_id_2>\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Roles",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles"
+					]
+				},
+				"description": "Lists the roles for this account"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Role",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"<updated name of role>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Apps to Role",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[app_id_1, app_id_2, app_id_3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/apps",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"apps"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Assigns apps to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Apps For Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/apps",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"apps"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Lists the apps associated to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Users to Role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[user_id_1, user_id_2, user_id_3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"users"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Assigns apps to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users For Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"users"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Lists the apps associated to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Users From Role",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[user_id_1, user_id_2, user_id_3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"users"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Assigns apps to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Admins to Role",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[admin_user_id_1, admin_user_id_2, admin_user_id_3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/admins",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"admins"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Assigns apps to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Admin Users For Role",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/admins",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"admins"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Lists the apps associated to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Admins From Role",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[admin_user_id_1, admin_user_id_2, admin_user_id_3]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id/admins",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id",
+						"admins"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				},
+				"description": "Assigns apps to a role"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Role",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/roles/:role_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"roles",
+						":role_id"
+					],
+					"variable": [
+						{
+							"key": "role_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ec7ca2b9-5ece-4a71-b452-bc6eba8c5f55",
+				"type": "text/javascript",
+				"exec": [
+					"var basicAuthCreds = btoa(`${pm.environment.get(\"client-id\")}:${pm.environment.get(\"client-secret\")}`);",
+					"var tokenRequest = {",
+					"    url: pm.variables.replaceIn(\"{{url}}/auth/oauth2/v2/token\"),",
+					"    method: 'POST',",
+					"    header: {",
+					"      'Content-Type': 'application/json',",
+					"      'Authorization': `Basic ${basicAuthCreds}`",
+					"    },",
+					"    body: { ",
+					"        mode: 'raw', ",
+					"        raw: JSON.stringify({\"grant_type\":\"client_credentials\"})",
+					"    }",
+					"}",
+					"",
+					"pm.sendRequest(tokenRequest, function (err, response) {",
+					"    var jsonData = response.json();",
+					"    postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+					"    postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7200a7a7-6b8b-4ffb-885f-2ee96929aa69",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "aadb3128-882b-41ba-8575-c736433ecdd3",
+			"key": "url",
+			"value": "https://api.us.onelogin.com"
+		},
+		{
+			"id": "27d403b8-e707-4b55-9a96-bb04af2da82d",
+			"key": "access-token",
+			"value": ""
+		},
+		{
+			"id": "c73a2f2c-b016-4521-895e-2aab9c6cd199",
+			"key": "client-id",
+			"value": ""
+		},
+		{
+			"id": "dddfa64f-7e17-4eef-b7bf-3804604357bd",
+			"key": "client-secret",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
