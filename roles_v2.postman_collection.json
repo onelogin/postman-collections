@@ -473,22 +473,22 @@
 	],
 	"variable": [
 		{
-			"id": "aadb3128-882b-41ba-8575-c736433ecdd3",
+			"id": "52d0799a-d312-49eb-a422-0f05fb41b45c",
 			"key": "url",
 			"value": "https://api.us.onelogin.com"
 		},
 		{
-			"id": "27d403b8-e707-4b55-9a96-bb04af2da82d",
+			"id": "a35f224b-3e44-4f90-b324-906fa70b1e37",
 			"key": "access-token",
 			"value": ""
 		},
 		{
-			"id": "c73a2f2c-b016-4521-895e-2aab9c6cd199",
+			"id": "3117ffc1-c1dc-4638-81d2-5e58f4e58c87",
 			"key": "client-id",
 			"value": ""
 		},
 		{
-			"id": "dddfa64f-7e17-4eef-b7bf-3804604357bd",
+			"id": "002cb90d-580d-4cef-a761-b5ad5d6a1b0a",
 			"key": "client-secret",
 			"value": ""
 		}

@@ -58,7 +58,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"enabled\": true,\n  \"name\": “<branding_name>”,\n  \"custom_support_enabled\": false,\n  \"custom_color\": \"<#hex_code_for_primary_color>\",\n  \"custom_accent_color\": \"#hex_code_for_accent_color\",\n  \"custom_masking_color\": \"#hex_code_for_masking_color\",\n  \"custom_masking_opacity\": 0,\n  \"enable_custom_label_for_login_screen\": true,\n  \"custom_label_text_for_login_screen\": \"<label_text>\",\n  \"login_instruction_title\": \"<login_instruction_title>\",\n  \"login_instruction\": \"<login_instructions>\",\n  \"hide_onelogin_footer\": true,\n  \"mfa_enrollment_message\": \"<mfa_enroll_message>\",\n  \"background\": \"<base_64_encoded_image_as_string>\",\n  \"logo\": \"<base_64_encoded_image_as_string>\"\n}\n",
+					"raw": "{\n  \"enabled\": true,\n  \"name\": \"<name>\",\n  \"custom_support_enabled\": false,\n  \"custom_color\": \"<#hex_code_for_primary_color>\",\n  \"custom_accent_color\": \"#hex_code_for_accent_color\",\n  \"custom_masking_color\": \"#hex_code_for_masking_color\",\n  \"custom_masking_opacity\": 0,\n  \"enable_custom_label_for_login_screen\": true,\n  \"custom_label_text_for_login_screen\": \"<label_text>\",\n  \"login_instruction_title\": \"<login_instruction_title>\",\n  \"login_instruction\": \"<login_instructions>\",\n  \"hide_onelogin_footer\": true,\n  \"mfa_enrollment_message\": \"<mfa_enroll_message>\",\n  \"background\": \"<base_64_encoded_image_as_string (cat path_to_jpg_or_png_5mb_max | base64)>\",\n  \"logo\": \"<base_64_encoded_image_as_string (cat path_to_png_1mb_max | base64)>\"\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,6 +84,15 @@
 			"request": {
 				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"enabled\": true,\n  \"name\": \"<name>\",\n  \"custom_support_enabled\": false,\n  \"custom_color\": \"<#hex_code_for_primary_color>\",\n  \"custom_accent_color\": \"#hex_code_for_accent_color\",\n  \"custom_masking_color\": \"#hex_code_for_masking_color\",\n  \"custom_masking_opacity\": 0,\n  \"enable_custom_label_for_login_screen\": true,\n  \"custom_label_text_for_login_screen\": \"<label_text>\",\n  \"login_instruction_title\": \"<login_instruction_title>\",\n  \"login_instruction\": \"<login_instructions>\",\n  \"hide_onelogin_footer\": true,\n  \"mfa_enrollment_message\": \"<mfa_enroll_message>\",\n  \"background\": \"<base_64_encoded_image_as_string (cat path_to_jpg_or_png_5mb_max | base64)>\",\n  \"logo\": \"<base_64_encoded_image_as_string (cat path_to_png_1mb_max | base64)>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{url}}/api/2/branding/:id",
 					"host": [
@@ -211,22 +220,22 @@
 	],
 	"variable": [
 		{
-			"id": "e52b5d23-9f26-40a4-865e-d3d376b5deb5",
+			"id": "f52a9be7-c4c7-495f-8690-201a98f7d54d",
 			"key": "client-id",
 			"value": ""
 		},
 		{
-			"id": "cf775558-854c-46d1-94dc-ac7406edb373",
+			"id": "b7de24a0-5058-442e-b0e0-887d08282bd5",
 			"key": "client-secret",
 			"value": ""
 		},
 		{
-			"id": "c1091380-a3ee-4dcc-a005-83c76e19c58c",
+			"id": "d1cb9326-99c5-4650-b1c8-e19df5c3ed29",
 			"key": "access-token",
 			"value": ""
 		},
 		{
-			"id": "c3e6b631-e335-41a7-9e2c-8a9bb51ebd4c",
+			"id": "46bcfa5f-ea23-4a89-ba17-b1dfdecfda0b",
 			"key": "url",
 			"value": ""
 		}
