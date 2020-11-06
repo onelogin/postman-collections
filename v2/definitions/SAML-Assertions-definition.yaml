@@ -4,8 +4,13 @@ info:
   title: SAML Assertion
   version: 2.0.0
   contact: {}
+
 servers:
-  - url: "https://{{api-domain}}"
+  - url: "https://api.us.onelogin.com/auth/"
+    description: "Production US API Auth Server"
+  - url: "https://api.eu.onelogin.com/auth/"
+    description: "Production EU API Auth Server"
+
 paths:
   /api/2/saml_assertion:
     post:
