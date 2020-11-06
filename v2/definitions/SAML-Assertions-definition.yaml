@@ -6,13 +6,13 @@ info:
   contact: {}
 
 servers:
-  - url: "https://api.us.onelogin.com/auth/"
+  - url: "https://api.us.onelogin.com/api/2"
     description: "Production US API Auth Server"
-  - url: "https://api.eu.onelogin.com/auth/"
+  - url: "https://api.eu.onelogin.com/api/2"
     description: "Production EU API Auth Server"
 
 paths:
-  /api/2/saml_assertion:
+  /saml_assertion:
     post:
       summary: Generate SAML Assertion
       description: Generate SAML Assertion
@@ -43,7 +43,7 @@ paths:
       responses:
         "200":
           description: ""
-  /api/2/saml_assertion/verify_factor:
+  /saml_assertion/verify_factor:
     post:
       summary: Verify Factor SAML
       description: Verify Factor SAML
