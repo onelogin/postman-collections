@@ -3,7 +3,7 @@ openapi: 3.0.3
 tags: []
 info:
   title: Access Tokens - OneLogin API
-  description: Generate an access token and refresh token that you can use to call our resource APIs. This Collection uses version 2 of the OneLogin Generate Token endpoint for API version /1. Gotta love our confusing versioning scheme.
+  description: Generate an access token and refresh token that you can use to call our resource APIs. This Collection uses version 2 of the OneLogin Generate Token endpoint for API version /1.
   version: 2.0.0
   contact:
     name: "OneLogin Developers"
