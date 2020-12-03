@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 2
+  version: 2.0.0
   title: List Roles API
 servers:
   - url: 'http://localhost:3000'
