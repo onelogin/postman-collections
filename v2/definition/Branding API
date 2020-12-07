@@ -3,7 +3,7 @@ openapi: 3.0.3
 info:
   title: Account Branding - OneLogin API
   description: "Use this API to create, update and manage custom brand configurations. Brands can then be applied to apps via Apps API to create custom login pages. "
-  version: 1.0.0
+  version: 2.0.0
   contact: {}
 servers:
   - url: "https://{{api-domain}}"
