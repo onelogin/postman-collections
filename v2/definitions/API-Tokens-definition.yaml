@@ -14,10 +14,7 @@ info:
     email: "support@onelogin.com"
 
 servers:
-  - url: "https://api.us.onelogin.com/auth/"
-    description: "Production US API Auth Server"
-  - url: "https://api.eu.onelogin.com/auth/"
-    description: "Production EU API Auth Server"
+  - url: "https://{{api-domain}}"
 
 components:
   securitySchemes:
