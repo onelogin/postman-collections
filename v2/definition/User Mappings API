@@ -1,0 +1,267 @@
+openapi: 3.0.3
+info:
+  title: User Mappings - OneLogin API
+  description: Simple tests for the new Mappings API
+  version: 2.0.0
+  contact: {}
+servers:
+  - url: "https://{{api-domain}}"
+paths:
+  /api/2/mappings:
+    get:
+      summary: List Mappings
+      description: List Mappings
+      operationId: listMappings
+      parameters:
+        - name: has_condition
+          in: query
+          schema:
+            type: string
+            example: "has_role:{{role_id}}"
+        - name: has_condition_type
+          in: query
+          schema:
+            type: string
+            example: none
+        - name: has_action
+          in: query
+          schema:
+            type: string
+            example: "set_status:*"
+        - name: has_action_type
+          in: query
+          schema:
+            type: string
+            example: none
+      responses:
+        "200":
+          description: ""
+    post:
+      summary: Create Mapping
+      description: Create Mapping
+      operationId: createMapping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      action:
+                        type: string
+                        example: set_status
+                      value:
+                        type: array
+                        items:
+                          type: string
+                          example: "2"
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      operator:
+                        type: string
+                        example: ">"
+                      source:
+                        type: string
+                        example: last_login
+                      value:
+                        type: string
+                        example: "90"
+                enabled:
+                  type: boolean
+                  example: true
+                match:
+                  type: string
+                  example: all
+                name:
+                  type: string
+                  example: Suspend after 90 days inactive
+                position:
+                  nullable: true
+                  example: ~
+            example:
+              actions:
+                - action: set_status
+                  value:
+                    - "2"
+              conditions:
+                - operator: ">"
+                  source: last_login
+                  value: "90"
+              enabled: true
+              match: all
+              name: Suspend after 90 days inactive
+              position: ~
+      responses:
+        "200":
+          description: ""
+  /api/2/mappings/actions:
+    get:
+      summary: List Actions
+      description: List Actions
+      operationId: listActions
+      responses:
+        "200":
+          description: ""
+  "/api/2/mappings/actions/{mapping_action_value}/values":
+    get:
+      summary: List Actions Values
+      description: List Actions Values
+      operationId: listActionsValues
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: mapping_action_value
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/2/mappings/conditions:
+    get:
+      summary: List Conditions
+      description: List Conditions
+      operationId: listConditions
+      responses:
+        "200":
+          description: ""
+  "/api/2/mappings/conditions/{mapping_condition_value}/operators":
+    get:
+      summary: List Conditions Operators
+      description: List Conditions Operators
+      operationId: listConditionsOperators
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: mapping_condition_value
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/2/mappings/conditions/{mapping_condition_value}/values":
+    get:
+      summary: List Conditions Values
+      description: List Conditions Values
+      operationId: listConditionsValues
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: mapping_condition_value
+        in: path
+        required: true
+        schema:
+          type: string
+  /api/2/mappings/sort:
+    put:
+      summary: Bulk Sort
+      description: Bulk Sort
+      operationId: bulkSort
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: number
+                example: 196671
+            example:
+              - 196671
+              - 196670
+              - 196672
+              - 196676
+              - 197758
+      responses:
+        "200":
+          description: ""
+  "/api/2/mappings/{mapping_id}":
+    get:
+      summary: Get Mapping
+      description: Get Mapping
+      operationId: getMapping
+      responses:
+        "200":
+          description: ""
+    put:
+      summary: Update Mapping
+      description: Update Mapping
+      operationId: updateMapping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      action:
+                        type: string
+                        example: set_status
+                      value:
+                        type: string
+                        example: "2"
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      operator:
+                        type: string
+                        example: ">"
+                      source:
+                        type: string
+                        example: last_login
+                      value:
+                        type: string
+                        example: "90"
+                enabled:
+                  type: boolean
+                  example: true
+                match:
+                  type: string
+                  example: all
+                name:
+                  type: string
+                  example: My Second Mapping
+                position:
+                  type: number
+                  example: 1
+            example:
+              actions:
+                - action: set_status
+                  value: "2"
+              conditions:
+                - operator: ">"
+                  source: last_login
+                  value: "90"
+              enabled: true
+              match: all
+              name: My Second Mapping
+              position: 1
+      responses:
+        "200":
+          description: ""
+    delete:
+      summary: Delete Mapping
+      description: Delete Mapping
+      operationId: deleteMapping
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: mapping_id
+        in: path
+        required: true
+        schema:
+          type: string
+tags: []
