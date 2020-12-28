@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: MFA v1 - OneLogin API
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: "https://{{api-domain}}"
+paths:
+  "/api/1/users/{user_id}/auth_factors":
+    get:
+      summary: Get Available Factors
+      description: Get Available Factors
+      operationId: getAvailableFactors
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/1/users/{user_id}/mfa_token":
+    post:
+      summary: Generate Temp MFA Token
+      description: Generate Temp MFA Token
+      operationId: generateTempMfaToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expires_in:
+                  type: string
+                  example: "300"
+                reusable:
+                  type: boolean
+                  example: false
+            example:
+              expires_in: "300"
+              reusable: false
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/1/users/{user_id}/otp_devices":
+    get:
+      summary: Get Enrolled Factors
+      description: Get Enrolled Factors
+      operationId: getEnrolledFactors
+      responses:
+        "200":
+          description: ""
+    post:
+      summary: Enroll a Factor
+      description: Enroll an Authentication Factor
+      operationId: enrollAFactor
+      requestBody:
+        content:
+          text/plain:
+            example: "{\n  \"factor_id\": {{factor_id}},\n  \"display_name\":  \"{{name_for_the_factor}}\",\n  \"number\": \"{{phone_number}}\"\n}"
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/1/users/{user_id}/otp_devices/{device_id}":
+    delete:
+      summary: Remove an Enrolled Factor
+      description: Remove an enrolled MFA device for a user
+      operationId: removeAnEnrolledFactor
+      requestBody:
+        content:
+          application/octet-stream: {}
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/1/users/{user_id}/otp_devices/{device_id}/trigger":
+    post:
+      summary: Activate a Factor
+      description: Activate a Factor
+      operationId: activateAFactor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                state_token_expires_in:
+                  type: number
+                  example: 300
+            example:
+              state_token_expires_in: 300
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+  "/api/1/users/{user_id}/otp_devices/{device_id}/verify":
+    post:
+      summary: Verify a Factor
+      description: Verify a Factor
+      operationId: verifyAFactor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp_token:
+                  type: string
+                  example: "{{otp_token}}"
+                state_token:
+                  type: string
+                  example: "{{state_token}}"
+            example:
+              otp_token: "{{otp_token}}"
+              state_token: "{{state_token}}"
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+tags: []
