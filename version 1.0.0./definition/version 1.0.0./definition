@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Access Tokens - OneLogin API
+  description: Generate an access token and refresh token that you can use to call our resource APIs. This Collection uses version 2 of the OneLogin Generate Token endpoint for API version /1. Gotta love our confusing versioning scheme.
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: "https://{{api-domain}}"
+paths:
+  /auth/oauth2/revoke:
+    post:
+      summary: Revoke Tokens
+      description: Revoke Tokens
+      operationId: revokeTokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                access_token:
+                  type: string
+                  example: "{{access_token}}"
+            example:
+              access_token: "{{access_token}}"
+      responses:
+        "200":
+          description: ""
+  /auth/oauth2/v2/token:
+    post:
+      summary: Generate Tokens
+      description: Generate Tokens
+      operationId: generateTokens
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  example: client_credentials
+            example:
+              grant_type: client_credentials
+      responses:
+        "200":
+          description: ""
+  /auth/rate_limit:
+    get:
+      summary: Get Rate Limit
+      description: Get Rate Limit
+      operationId: getRateLimit
+      responses:
+        "200":
+          description: ""
+tags: []
