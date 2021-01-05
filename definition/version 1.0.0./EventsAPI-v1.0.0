@@ -7,6 +7,8 @@ servers:
   - url: "https://{{api-domain}}"
 paths:
   /api/1/events:
+    post:
+
     get:
       summary: Get Events
       description: Get Events
@@ -76,6 +78,8 @@ paths:
       responses:
         "200":
           description: ""
+        "404":
+          description: "Event ID could not be found"
     parameters:
       - name: event_id
         in: path
