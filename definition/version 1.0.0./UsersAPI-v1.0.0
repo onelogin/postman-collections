@@ -246,7 +246,7 @@ paths:
       requestBody:
         content:
           application/json:
-            example: { \"locked_until\": <integer_in_minutes> }
+            example: { "locked_until": "<integer_in_minutes>" }
       responses:
         "200":
           description: ""
