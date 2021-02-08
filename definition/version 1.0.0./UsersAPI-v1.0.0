@@ -245,7 +245,7 @@ paths:
       operationId: lockUserAccount
       requestBody:
         content:
-          text/plain:
+          application/json:
             example: "{ \"locked_until\": <integer_in_minutes> }"
       responses:
         "200":
