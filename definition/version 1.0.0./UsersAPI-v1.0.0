@@ -87,7 +87,7 @@ paths:
                   type: string
                   example: "john.doe"
       responses:
-        "201":
+        "200":
           description: "User created successfully"
   /api/1/users/custom_attributes:
     get:
