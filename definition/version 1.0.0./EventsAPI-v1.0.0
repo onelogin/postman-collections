@@ -11,10 +11,9 @@ paths:
       summary: Create Events
       description: Generate an Event
       operationId: createEvents
-      parameters:
       responses:
           "200":
-              description: Successfully created the Even
+              description: Event successfully created
 
         
     get:
