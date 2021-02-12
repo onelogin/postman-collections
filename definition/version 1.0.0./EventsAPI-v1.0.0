@@ -8,7 +8,15 @@ servers:
 paths:
   /api/1/events:
     post:
+      summary: Create Events
+      description: Generate an Event
+      operationId: createEvents
+      parameters:
+      responses:
+          "200":
+              description: Successfully created the Even
 
+        
     get:
       summary: Get Events
       description: Get Events
@@ -87,3 +95,4 @@ paths:
         schema:
           type: string
 tags: []
+
