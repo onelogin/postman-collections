@@ -93,6 +93,9 @@ paths:
                   type: string
                 password_confirmation:
                   type: string
+                password_algorithm:
+                  type: string
+                  
       responses:
         "200":
           description: "User created successfully"
