@@ -89,6 +89,10 @@ paths:
                 username:
                   type: string
                   example: "john.doe"
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
       responses:
         "200":
           description: "User created successfully"
