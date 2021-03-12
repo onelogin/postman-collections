@@ -373,8 +373,7 @@ paths:
   /session_via_api_token:
     post:
       summary: Create Session
-      security:
-        - noAuth: []
+      security: []
       description: Create Session
       operationId: createSession
       requestBody:
