@@ -34,8 +34,6 @@ paths:
   /api/1/login/verify_factor:
     post:
       summary: Verify Factor
-      security:
-        - oAuth2ClientCredentials: []
       description: Verify Factor
       operationId: verifyFactor
       requestBody:
@@ -57,8 +55,6 @@ paths:
   /api/1/users:
     get:
       summary: Get User by sAMAccountName
-      security:
-        - oAuth2ClientCredentials: []
       description: Get User by sAMAccountName
       operationId: getUserBySAmAccountName
       parameters:
@@ -72,8 +68,6 @@ paths:
           description: "Search performed correctly"
     post:
       summary: Create a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Create a User
       operationId: createAUser
       requestBody:
@@ -126,8 +120,6 @@ paths:
   /api/1/users/custom_attributes:
     get:
       summary: Get Custom Attributes
-      security:
-        - oAuth2ClientCredentials: []
       description: Get Custom Attributes
       operationId: getCustomAttributes
       responses:
@@ -136,8 +128,6 @@ paths:
   "/api/1/users/set_password_clear_text/{user_id}":
     put:
       summary: Set Password Using ID in Cleartext
-      security:
-        - oAuth2ClientCredentials: []
       description: Set Password Using ID in Cleartext
       operationId: setPasswordUsingIdInCleartext
       requestBody:
@@ -170,8 +160,6 @@ paths:
   "/api/1/users/set_password_using_salt/{user_id}":
     put:
       summary: Set Password Using ID and SHA-256 and Salt
-      security:
-        - oAuth2ClientCredentials: []
       description: Set Password Using ID and SHA-256 and Salt
       operationId: setPasswordUsingIdAndSha256AndSalt
       requestBody:
@@ -209,8 +197,6 @@ paths:
   "/api/1/users/{user_id}":
     get:
       summary: Get User by ID
-      security:
-        - oAuth2ClientCredentials: []
       description: Get User by ID
       operationId: getUserById
       responses:
@@ -218,8 +204,6 @@ paths:
           description: ""
     put:
       summary: Update a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Update a User
       operationId: updateAUser
       requestBody:
@@ -238,8 +222,6 @@ paths:
           description: ""
     delete:
       summary: Delete a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Delete a User
       operationId: deleteAUser
       requestBody:
@@ -258,8 +240,6 @@ paths:
   "/api/1/users/{user_id}/add_roles":
     put:
       summary: Add Roles for a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Add Roles for a User
       operationId: addRolesForAUser
       requestBody:
@@ -278,8 +258,6 @@ paths:
   "/api/1/users/{user_id}/apps":
     get:
       summary: Get Apps for a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Get Apps for a User
       operationId: getAppsForAUser
       responses:
@@ -294,8 +272,6 @@ paths:
   "/api/1/users/{user_id}/lock_user":
     put:
       summary: Lock User Account
-      security:
-        - oAuth2ClientCredentials: []
       description: Lock User Account
       operationId: lockUserAccount
       requestBody:
@@ -314,8 +290,6 @@ paths:
   "/api/1/users/{user_id}/logout":
     put:
       summary: Log User Out
-      security:
-        - oAuth2ClientCredentials: []
       description: Log User Out
       operationId: logUserOut
       requestBody:
@@ -334,8 +308,6 @@ paths:
   "/api/1/users/{user_id}/remove_roles":
     put:
       summary: Remove Roles for a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Remove Roles for a User
       operationId: removeRolesForAUser
       requestBody:
@@ -354,8 +326,6 @@ paths:
   "/api/1/users/{user_id}/roles":
     get:
       summary: Get Roles for a User
-      security:
-        - oAuth2ClientCredentials: []
       description: Get Roles for a User
       operationId: getRolesForAUser
       responses:
@@ -370,8 +340,6 @@ paths:
   "/api/1/users/{user_id}/set_custom_attributes":
     put:
       summary: Set Custom Attributes for User
-      security:
-        - oAuth2ClientCredentials: []
       description: Set Custom Attributes for User
       operationId: setCustomAttributesForUser
       requestBody:
