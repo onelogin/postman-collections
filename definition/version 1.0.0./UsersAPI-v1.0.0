@@ -113,10 +113,10 @@ paths:
               properties:
                 password:
                   type: string
-                  example: "<password>"
+                  example: "{{password}}"
                 password_confirmation:
                   type: string
-                  example: "<password_confirmation>"
+                  example: "{{password_confirmation}}"
             example:
               password: "{{password}}"
               password_confirmation: "{{password_confirmation}}"
