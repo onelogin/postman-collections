@@ -95,6 +95,22 @@ paths:
                   type: string
                 password_algorithm:
                   type: string
+                  description: "
+                    Only use this when importing a password has already been hashed.
+
+                    salt+sha256
+                    Set to the password value using a SHA-256-encoded value.
+                    If you are including your own salt value in your
+                    request, prepend the salt value to the cleartext password
+                    value before SHA-256-encoding it.
+
+                    For example, if your salt value is hello and your
+                    cleartext password value is password, the value you
+                    need to SHA-256-encode is hellopassword. The resulting
+                    encoded value would be
+                    9fb8dc1cdabee85d13f5b4ba680a5e71cb8c80e78e5ffe8c01b698fa39346006.
+
+                    b​crypt"
                   
       responses:
         "200":
