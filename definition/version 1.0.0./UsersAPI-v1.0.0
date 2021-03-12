@@ -73,6 +73,9 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                  - username
+                  - email
               properties:
                 email:
                   type: string
