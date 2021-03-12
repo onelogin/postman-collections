@@ -118,8 +118,8 @@ paths:
                   type: string
                   example: "<password_confirmation>"
             example:
-              password: "<password>"
-              password_confirmation: "<password_confirmation>"
+              password: "{{password}}"
+              password_confirmation: "{{password_confirmation}}"
       responses:
         "200":
           description: ""
