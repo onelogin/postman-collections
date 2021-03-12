@@ -10,6 +10,9 @@ paths:
   /api/1/login/auth:
     post:
       summary: Create Session Login Token
+      security:
+        - oAuth2ClientCredentials: []
+      
       description: Create Session Login Token
       operationId: createSessionLoginToken
       requestBody:
