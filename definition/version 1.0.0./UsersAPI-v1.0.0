@@ -371,7 +371,7 @@ paths:
         schema:
           type: string
   /session_via_api_token:
-    security:
+    security: []
     post:
       summary: Create Session
       description: Create Session
