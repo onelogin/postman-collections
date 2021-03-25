@@ -1,7 +1,7 @@
 ---
 openapi: 3.0.3
 info:
-  title: Apps API - OneLogin
+  title: Connectors API - OneLogin
   version: 2.0.0
   contact: {}
 servers:
