@@ -3,7 +3,8 @@ info:
   version: 2.0.0
   title: List Roles API
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'https://api.us.onelogin.com'
+  - url: 'https://api.eu.onelogin.com'
 paths:
   /user:
     get:
