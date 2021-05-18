@@ -293,6 +293,13 @@ components:
         clientCredentials: 
           tokenUrl: https://api.{{region}}.onelogin.com/auth/oauth2/v2/token
           scopes: {} # Role APIs V2 do not use scopes.
+  schemas:
+    Error:
+      type: object
+      required:
+        - statusCode
+        - message
+        - name
 
 tags:
   - name: Apps
