@@ -70,7 +70,7 @@ paths:
       responses:
         "200":
           description: ""
-  "/roles/{role_id}":
+  /roles/{role_id}:
     get:
       summary: Get Role
       description: Get Role
