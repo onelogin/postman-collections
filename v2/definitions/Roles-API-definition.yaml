@@ -80,7 +80,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  "/roles/{role_id}":
+  "/roles/{{role_id}}":
     get:
       summary: Get Role
       description: Get Role
