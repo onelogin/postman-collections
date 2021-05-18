@@ -9,7 +9,7 @@ servers:
 security:
   - oAuth2ClientCredentials: []
 paths:
-  /roles":
+  /roles:
     get:
       summary: List Roles
       description: List Roles
