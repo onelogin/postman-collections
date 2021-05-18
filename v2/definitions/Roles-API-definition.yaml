@@ -34,7 +34,7 @@ paths:
             type: string
       responses:
         "200":
-          description: ""
+          description: "Successfully fetched resource"
         "401":
           description: "Unauthorized access"
     post:
@@ -68,8 +68,10 @@ paths:
               name: Sample Role
               users: []
       responses:
-        "200":
-          description: ""
+        "201":
+          description: "Successfully created role"
+        "401":
+          description: "Unauthorized access"
   "/roles/{role_id}":
     get:
       summary: Get Role
