@@ -13,16 +13,23 @@ paths:
       description: List Roles
       operationId: listRoles
       parameters:
-        - name: app_id
+        - name: name
           in: query
           schema:
             type: string
+        - name: app_id
+          in: query
+          schema:
+            type: integer
             example: "{{app_id}}"
         - name: app_name
           in: query
           schema:
             type: string
-            example: ""
+        - name: fields
+          in: query
+          schema:
+            type: string
       responses:
         "200":
           description: ""
