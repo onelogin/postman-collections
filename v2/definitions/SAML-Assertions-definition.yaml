@@ -43,6 +43,8 @@ paths:
                 username_or_email:
                   type: string
                   example: "{{username_or_email}}"
+                ip_address:
+                  type: string
             example:
               app_id: "{{app_id}}"
               password: "{{password}}"
