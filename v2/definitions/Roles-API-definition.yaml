@@ -300,6 +300,14 @@ components:
         - statusCode
         - message
         - name
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        name:
+          type: string
 
 tags:
   - name: Apps
