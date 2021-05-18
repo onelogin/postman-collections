@@ -281,16 +281,17 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
+
+  securitySchemes:
+    oAuth2ClientCredentials:
+      type: oauth2
+      description: See https://developers.onelogin.com/api-docs/1/oauth20-tokens/generate-tokens-2
+      flows: 
+        clientCredentials: 
+          tokenUrl: https://api.{{region}}.onelogin.com/auth/oauth2/v2/token
+          scopes: {} # Role APIs V2 do not use scopes.
+
 tags:
   - name: Apps
   - name: Users
   - name: Admins
-
-securitySchemes:
-  oAuth2ClientCredentials:
-    type: oauth2
-    description: See https://developers.onelogin.com/api-docs/1/oauth20-tokens/generate-tokens-2
-    flows: 
-      clientCredentials: 
-        tokenUrl: https://api.{{region}}.onelogin.com/auth/oauth2/v2/token
-        scopes: {} # Role APIs V2 do not use scopes.
