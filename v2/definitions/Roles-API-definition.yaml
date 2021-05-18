@@ -5,9 +5,9 @@ info:
   version: 1.0.0
   contact: {}
 servers:
-  - url: "https://{{api-domain}}"
+  - url: "https://{{api-domain}}/api/2/"
 paths:
-  /api/2/roles:
+  /roles:
     get:
       summary: List Roles
       description: List Roles
@@ -59,7 +59,7 @@ paths:
       responses:
         "200":
           description: ""
-  "/api/2/roles/{role_id}":
+  "/roles/{role_id}":
     get:
       summary: Get Role
       description: Get Role
@@ -99,7 +99,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/api/2/roles/{role_id}/admins":
+  "/roles/{role_id}/admins":
     get:
       tags:
         - Admins
@@ -158,7 +158,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/api/2/roles/{role_id}/apps":
+  "/roles/{role_id}/apps":
     get:
       tags:
         - Apps
@@ -198,7 +198,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/api/2/roles/{role_id}/users":
+  "/roles/{role_id}/users":
     get:
       tags:
         - Users
