@@ -25,6 +25,11 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - username_or_email
+                - password
+                - app_id
+                - subdomain
               properties:
                 app_id:
                   type: string
