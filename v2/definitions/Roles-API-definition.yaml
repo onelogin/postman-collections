@@ -1,67 +1,276 @@
-openapi: 3.0.0
+---
+openapi: 3.0.3
 info:
-  version: 2.0.0
-  title: List Roles API
+  title: Roles v2 - OneLogin API
+  version: 1.0.0
+  contact: {}
 servers:
-  - url: 'https://api.us.onelogin.com/api/2'
-  - url: 'https://api.eu.onelogin.com/api/2'
-  - url: 'https://{subdomain}.onelogin.com/api/2'
+  - url: "https://{{api-domain}}"
 paths:
-  /user:
+  /api/2/roles:
     get:
-      summary: 'Sample endpoint: Returns details about a particular user'
-      operationId: listUser
-      tags:
-        - user
+      summary: List Roles
+      description: List Roles
+      operationId: listRoles
       parameters:
-        - name: id
+        - name: app_id
           in: query
-          description: ID of the user
-          required: true
           schema:
-            type: integer
-            format: int32
+            type: string
+            example: "{{app_id}}"
+        - name: app_name
+          in: query
+          schema:
+            type: string
+            example: ""
       responses:
-        '200':
-          description: 'Sample response: Details about a user by ID'
-          headers:
-            x-next:
-              description: A link to the next page of responses
-              schema:
-                type: string
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-components:
-  schemas:
-    User:
-      type: object
-      required:
-        - id
-        - name
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
+        "200":
+          description: ""
+    post:
+      summary: Create Role
+      description: Create Role
+      operationId: createRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                admins:
+                  type: array
+                  items: {}
+                  example: []
+                apps:
+                  type: array
+                  items: {}
+                  example: []
+                name:
+                  type: string
+                  example: Sample Role
+                users:
+                  type: array
+                  items: {}
+                  example: []
+            example:
+              admins: []
+              apps: []
+              name: Sample Role
+              users: []
+      responses:
+        "200":
+          description: ""
+  "/api/2/roles/{role_id}":
+    get:
+      summary: Get Role
+      description: Get Role
+      operationId: getRole
+      responses:
+        "200":
+          description: ""
+    put:
+      summary: Update Role
+      description: Update Role
+      operationId: updateRole
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Role Name
+            example:
+              name: Updated Role Name
+      responses:
+        "200":
+          description: ""
+    delete:
+      summary: Delete Role
+      description: Delete Role
+      operationId: deleteRole
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
           type: string
-        tag:
+          example: "{{role_id}}"
+  "/api/2/roles/{role_id}/admins":
+    get:
+      tags:
+        - Admins
+      summary: Get Role Admins
+      description: Get Role Admins
+      operationId: getRoleAdmins
+      responses:
+        "200":
+          description: ""
+    post:
+      tags:
+        - Admins
+      summary: Add Role Admins
+      description: Add Role Admins
+      operationId: addRoleAdmins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: number
+                example: 36216766
+              example:
+                - 36216766
+            example:
+              - 36216766
+      responses:
+        "200":
+          description: ""
+    delete:
+      tags:
+        - Admins
+      summary: Remove Role Admins
+      description: Remove Role Admins
+      operationId: removeRoleAdmins
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: number
+                example: 36216766
+              example:
+                - 36216766
+            example:
+              - 36216766
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
           type: string
-    Error:
-      type: object
-      required:
-        - code
-        - message
-      properties:
-        code:
-          type: integer
-          format: int32
-        message:
+          example: "{{role_id}}"
+  "/api/2/roles/{role_id}/apps":
+    get:
+      tags:
+        - Apps
+      summary: Get Role Apps
+      description: Get Role Apps
+      operationId: getRoleApps
+      parameters:
+        - name: assigned
+          in: query
+          schema:
+            type: string
+            example: "false"
+      responses:
+        "200":
+          description: ""
+    put:
+      tags:
+        - Apps
+      summary: Set Role Apps
+      description: "Supply the full list of apps that should be assigned to this role. Apps will either be added or removed based on their presence in this list. "
+      operationId: setRoleApps
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items: {}
+              example: []
+            example: []
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
           type: string
+          example: "{{role_id}}"
+  "/api/2/roles/{role_id}/users":
+    get:
+      tags:
+        - Users
+      summary: Get Role Users
+      description: Get Role Users
+      operationId: getRoleUsers
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+            example: Rich
+        - name: include_unassigned
+          in: query
+          schema:
+            type: string
+            example: "true"
+      responses:
+        "200":
+          description: ""
+    post:
+      tags:
+        - Users
+      summary: Add Role Users
+      description: Add Role Users
+      operationId: addRoleUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: number
+                example: 60231059
+              example:
+                - 60231059
+                - 60231067
+            example:
+              - 60231059
+              - 60231067
+      responses:
+        "200":
+          description: ""
+    delete:
+      tags:
+        - Users
+      summary: Remove Role Users
+      description: Remove Role Users
+      operationId: removeRoleUsers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: number
+                example: 60231067
+              example:
+                - 60231067
+            example:
+              - 60231067
+      responses:
+        "200":
+          description: ""
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{role_id}}"
+tags:
+  - name: Apps
+  - name: Users
+  - name: Admins
