@@ -90,6 +90,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 tags: []
 
 components:
