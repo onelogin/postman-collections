@@ -87,6 +87,17 @@ paths:
 tags: []
 
 components:
+  schemas:
+    Error:
+      type: object
+      required:
+      properties:
+        statusCode:
+          type: integer
+        message:
+          type: string
+        name:
+          type: string
   securitySchemes:
     oAuth2ClientCredentials:
       type: oauth2
