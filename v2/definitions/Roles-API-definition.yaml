@@ -35,8 +35,12 @@ paths:
       responses:
         "200":
           description: "Successfully fetched resource"
-        "401":
-          description: "Unauthorized access"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       summary: Create Role
       description: Create Role
@@ -70,8 +74,12 @@ paths:
       responses:
         "201":
           description: "Successfully created role"
-        "401":
-          description: "Unauthorized access"
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   "/roles/{role_id}":
     get:
       summary: Get Role
@@ -80,6 +88,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       summary: Update Role
       description: Update Role
@@ -98,6 +112,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
       summary: Delete Role
       description: Delete Role
@@ -105,6 +125,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     parameters:
       - name: role_id
         in: path
@@ -122,6 +148,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       tags:
         - Admins
@@ -143,6 +175,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
       tags:
         - Admins
@@ -164,6 +202,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     parameters:
       - name: role_id
         in: path
@@ -187,6 +231,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     put:
       tags:
         - Apps
@@ -204,6 +254,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     parameters:
       - name: role_id
         in: path
@@ -232,6 +288,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       tags:
         - Users
@@ -255,6 +317,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     delete:
       tags:
         - Users
@@ -276,6 +344,12 @@ paths:
       responses:
         "200":
           description: ""
+        default:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     parameters:
       - name: role_id
         in: path
