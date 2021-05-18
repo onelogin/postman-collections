@@ -3,8 +3,9 @@ info:
   version: 2.0.0
   title: List Roles API
 servers:
-  - url: 'https://api.us.onelogin.com'
-  - url: 'https://api.eu.onelogin.com'
+  - url: 'https://api.us.onelogin.com/api/2'
+  - url: 'https://api.eu.onelogin.com/api/2'
+  - url: 'https://{subdomain}.onelogin.com/api/2'
 paths:
   /user:
     get:
