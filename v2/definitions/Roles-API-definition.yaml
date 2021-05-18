@@ -389,6 +389,9 @@ components:
           type: array
         admins:
           type: array
+          items:
+            type: integer
+            format: int32
         
     Error:
       type: object
