@@ -385,8 +385,14 @@ components:
           type: string
         apps:
           type: array
+          items:
+            type: integer
+            format: int32
         users:
           type: array
+          items:
+            type: integer
+            format: int32
         admins:
           type: array
           items:
