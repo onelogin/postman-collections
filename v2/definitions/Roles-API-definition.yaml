@@ -241,7 +241,7 @@ paths:
       tags:
         - Apps
       summary: Set Role Apps
-      description: "Supply the full list of apps that should be assigned to this role. Apps will either be added or removed based on their presence in this list. "
+      description: "Supply the full list of apps that should be assigned to this role. Apps will either be added or removed based on their presence in this list."
       operationId: setRoleApps
       requestBody:
         content:
