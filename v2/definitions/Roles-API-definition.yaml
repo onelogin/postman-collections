@@ -35,6 +35,10 @@ paths:
       responses:
         "200":
           description: "Successfully fetched resource"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
           
         default:
           description: ""
@@ -379,6 +383,12 @@ components:
           format: int32
         name:
           type: string
+        apps:
+          type: array
+        users:
+          type: array
+        admins:
+          type: array
         
     Error:
       type: object
