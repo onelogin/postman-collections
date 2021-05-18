@@ -35,6 +35,7 @@ paths:
       responses:
         "200":
           description: "Successfully fetched resource"
+          
         default:
           description: ""
           content:
@@ -368,6 +369,14 @@ components:
           tokenUrl: https://api.{{region}}.onelogin.com/auth/oauth2/v2/token
           scopes: {} # Role APIs V2 do not use scopes.
   schemas:
+    Role:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: integer
+          format: int32
     Error:
       type: object
       required:
