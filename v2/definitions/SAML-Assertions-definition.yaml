@@ -91,6 +91,9 @@ components:
     Error:
       type: object
       required:
+        - statusCode
+        - message
+        - name
       properties:
         statusCode:
           type: integer
