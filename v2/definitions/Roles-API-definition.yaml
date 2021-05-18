@@ -399,7 +399,6 @@ components:
           items:
             type: integer
             format: int32
-        
     Error:
       type: object
       required:
