@@ -80,7 +80,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  "/roles/{{role_id}}":
+  "/roles/:role_id":
     get:
       summary: Get Role
       description: Get Role
@@ -138,7 +138,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/roles/{role_id}/admins":
+  "/roles/:role_id/admins":
     get:
       tags:
         - Admins
@@ -215,7 +215,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/roles/{role_id}/apps":
+  "/roles/:role_id/apps":
     get:
       tags:
         - Apps
@@ -267,7 +267,7 @@ paths:
         schema:
           type: string
           example: "{{role_id}}"
-  "/roles/{role_id}/users":
+  "/roles/:role_id/users":
     get:
       tags:
         - Users
