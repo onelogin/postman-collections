@@ -2,7 +2,7 @@
 openapi: 3.0.3
 info:
   title: Roles v2 - OneLogin API
-  version: 1.0.0
+  version: 2.0.0
   contact: {}
 servers:
   - url: "https://{{api-domain}}/api/2/"
