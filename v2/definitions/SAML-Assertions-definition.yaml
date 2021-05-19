@@ -6,11 +6,8 @@ info:
   contact: {}
 
 servers:
-  - url: "https://api.us.onelogin.com/api/2"
-    description: "Production US API Auth Server"
-  - url: "https://api.eu.onelogin.com/api/2"
-    description: "Production EU API Auth Server"
-
+  - url: "https://{{api-domain}}"
+  
 security:
   - oAuth2ClientCredentials: []
 
