@@ -6,8 +6,8 @@ info:
   contact: {}
 
 servers:
-  - url: "https://{{api-domain}}"
-  
+  - url: "https://{{api-domain}}"/api/2
+
 security:
   - oAuth2ClientCredentials: []
 
