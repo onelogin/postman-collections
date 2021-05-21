@@ -34,7 +34,7 @@ paths:
             type: string
       responses:
         "200":
-          description: "Successfully fetched resource"
+          description: "Successfully the list of resources matching the requested criteria"
           content:
             application/json:
               schema:
