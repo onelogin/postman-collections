@@ -63,7 +63,8 @@ paths:
                   example: []
                 apps:
                   type: array
-                  items: {}
+                  items:
+                    type: integer
                   example: []
                 name:
                   type: string
