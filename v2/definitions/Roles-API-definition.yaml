@@ -12,7 +12,9 @@ paths:
   /roles:
     get:
       summary: List Roles
-      description: List Roles
+      description: 
+        Use this API to return a list of roles.
+        Pagination is supported on this endpoint.
       operationId: listRoles
       parameters:
         - name: name
