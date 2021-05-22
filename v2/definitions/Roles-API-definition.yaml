@@ -86,12 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                required:
-                  - id
-                properties:
-                  id:
-                    type: integer
+                $ref: '#/components/schemas/CreateUpdateRole'
         default:
           description: ""
           content:
