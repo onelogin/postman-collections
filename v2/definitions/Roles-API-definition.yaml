@@ -83,6 +83,15 @@ paths:
       responses:
         "201":
           description: "Successfully created role"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - id
+                properties:
+                  id:
+                    type: integer
         default:
           description: ""
           content:
