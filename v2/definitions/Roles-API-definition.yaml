@@ -253,13 +253,10 @@ paths:
           application/json:
             schema:
               type: array
+              description: Set user_id values in array.
               items:
-                type: number
-                example: 36216766
-              example:
-                - 36216766
-            example:
-              - 36216766
+                type: integer
+                example: [123, 456, 789]
       responses:
         "200":
           description: ""
