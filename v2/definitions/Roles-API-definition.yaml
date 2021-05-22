@@ -90,6 +90,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   "/roles/:role_id":
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{role_id}}"
     get:
       summary: Get Role
       description: Use this API to return the base role object. Role users, apps, and administrators are returned using sub endpoints.
@@ -172,13 +179,6 @@ paths:
         Use this API to delete a Role.
         BE CAREFUL. This operation is final and cannot be undone.
       operationId: deleteRole
-      parameters:
-        - name: role_id
-          in: path
-          required: true
-          schema:
-            type: string
-            example: "{{role_id}}"
       responses:
         "204":
           description: "Success. The role has been deleted. No content is returned"
