@@ -401,11 +401,13 @@ components:
             format: int32
         users:
           type: array
+          description: A list of user IDs to assign to the role.
           items:
             type: integer
             format: int32
         admins:
           type: array
+          description: A list of user IDs to assign as role administrators.
           items:
             type: integer
             format: int32
