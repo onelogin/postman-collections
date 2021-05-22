@@ -276,7 +276,9 @@ paths:
       tags:
         - Admins
       summary: Remove Role Admins
-      description: Remove Role Admins
+      description: 
+        Use this API to delete a role administrator.
+        BE CAREFUL. This operation is final and can't be undone.
       operationId: removeRoleAdmins
       requestBody:
         content:
@@ -284,12 +286,7 @@ paths:
             schema:
               type: array
               items:
-                type: number
-                example: 36216766
-              example:
-                - 36216766
-            example:
-              - 36216766
+                type: integer
       responses:
         "200":
           description: ""
