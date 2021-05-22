@@ -474,6 +474,10 @@ components:
         - id
         - name
         - email
+        - username
+        - assigned
+        - added_at
+        - added_by
       properties:
         id:
           type: integer
