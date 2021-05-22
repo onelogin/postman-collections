@@ -57,37 +57,13 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Create Role
-      description: Create Role
+      description: Use this API to create a new role.
       operationId: createRole
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                admins:
-                  type: array
-                  items:
-                    type: integer
-                  example: []
-                apps:
-                  type: array
-                  items:
-                    type: integer
-                  example: []
-                name:
-                  type: string
-                  example: Sample Role
-                users:
-                  type: array
-                  items: 
-                    type: integer
-                  example: []
-            example:
-              admins: []
-              apps: []
-              name: Sample Role
-              users: []
+              $ref: '#/components/schemas/Role'
       responses:
         "201":
           description: "Successfully created role"
