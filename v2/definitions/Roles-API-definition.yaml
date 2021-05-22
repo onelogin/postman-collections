@@ -172,6 +172,13 @@ paths:
         Use this API to delete a Role.
         BE CAREFUL. This operation is final and cannot be undone.
       operationId: deleteRole
+      parameters:
+        - name: role_id
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "{{role_id}}"
       responses:
         "204":
           description: "Success. The role has been deleted. No content is returned"
@@ -193,13 +200,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    parameters:
-      - name: role_id
-        in: path
-        required: true
-        schema:
-          type: string
-          example: "{{role_id}}"
   "/roles/:role_id/admins":
     get:
       tags:
