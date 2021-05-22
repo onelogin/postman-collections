@@ -101,13 +101,6 @@ paths:
       summary: Get Role
       description: Use this API to return the base role object. Role users, apps, and administrators are returned using sub endpoints.
       operationId: getRole
-      parameters:
-        - name: "id"
-          in: query
-          required: true
-          schema:
-            type: integer
-          description: Set to the ID of the role you want to return.
       responses:
         "200":
           description: ""
