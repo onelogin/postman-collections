@@ -49,6 +49,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Role'
+        "401":
+          description: Typically, this error means that your access token value is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: ""
           content:
