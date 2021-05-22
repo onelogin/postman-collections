@@ -117,8 +117,6 @@ paths:
                 name:
                   type: string
                   description: Name of the role.
-            example:
-              name: Updated Role Name
       responses:
         "200":
           description: ""
