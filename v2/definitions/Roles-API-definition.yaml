@@ -137,8 +137,8 @@ paths:
         BE CAREFUL. This operation is final and cannot be undone.
       operationId: deleteRole
       responses:
-        "200":
-          description: ""
+        "204":
+          description: "Success. The role has been deleted. No content is returned"
         default:
           description: ""
           content:
