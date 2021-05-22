@@ -209,6 +209,12 @@ paths:
         Use this API to return a list of role administrators.
         Pagination is supported on this endpoint.
       operationId: getRoleAdmins
+      parameters:
+        - name: include_unassigned
+          in: query
+          schema:
+            type: boolean
+            description: Optional. Include admins that aren’t assigned to the role.
       responses:
         "200":
           description: ""
