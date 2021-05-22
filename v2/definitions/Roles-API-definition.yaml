@@ -141,6 +141,16 @@ paths:
           description: "Success. The role has been deleted. No content is returned"
         "401":
           description: "Typically, this error means that your Authorization header value is missing or incorrectly formatted. The Authorization header value should use this format: bearer:<access_token>."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: You attempted to delete a role that does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: ""
           content:
