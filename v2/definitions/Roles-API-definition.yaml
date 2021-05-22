@@ -80,7 +80,7 @@ paths:
   "/roles/:role_id":
     get:
       summary: Get Role
-      description: Get Role
+      description: Use this API to return the base role object. Role users, apps, and administrators are returned using sub endpoints.
       operationId: getRole
       responses:
         "200":
