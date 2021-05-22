@@ -194,11 +194,20 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   "/roles/:role_id/admins":
+    parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{role_id}}"
     get:
       tags:
         - Admins
       summary: Get Role Admins
-      description: Get Role Admins
+      description: 
+        Use this API to return a list of role administrators.
+        Pagination is supported on this endpoint.
       operationId: getRoleAdmins
       responses:
         "200":
@@ -269,13 +278,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    parameters:
-      - name: role_id
-        in: path
-        required: true
-        schema:
-          type: string
-          example: "{{role_id}}"
   "/roles/:role_id/apps":
     get:
       tags:
