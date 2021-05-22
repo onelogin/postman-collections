@@ -104,7 +104,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     put:
       summary: Update Role
-      description: Update Role
+      description: Use this API to update a role. Partial role updates are supported.
       operationId: updateRole
       requestBody:
         content:
@@ -116,7 +116,7 @@ paths:
               properties:
                 name:
                   type: string
-                  example: Updated Role Name
+                  description: Name of the role.
             example:
               name: Updated Role Name
       responses:
