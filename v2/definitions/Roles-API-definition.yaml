@@ -139,6 +139,9 @@ paths:
       responses:
         "204":
           description: "Success. The role has been deleted. No content is returned"
+        "401":
+          description:
+            "Typically, this error means that your Authorization header value is missing or incorrectly formatted. The Authorization header value should use this format: bearer:<access_token>."
         default:
           description: ""
           content:
