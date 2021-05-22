@@ -19,19 +19,25 @@ paths:
       parameters:
         - name: name
           in: query
+          description: Optional. Filters by role name.
           schema:
             type: string
         - name: app_id
           in: query
+          description: Optional. Returns roles that contain this app ID.
           schema:
             type: integer
             example: "{{app_id}}"
         - name: app_name
           in: query
+          description: Optional. Returns roles that contain this app name.
           schema:
             type: string
         - name: fields
           in: query
+          description: 
+            Optional. Comma delimited list of fields to return
+            Valid options are apps, users, admins
           schema:
             type: string
       responses:
