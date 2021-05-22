@@ -423,11 +423,11 @@ components:
             format: int32
     CreateUpdateRole:
       type: object
-        required:
-          - id
-        properties:
-          id:
-            type: integer
+      required:
+        - id
+      properties:
+        id:
+          type: integer
     Error:
       type: object
       required:
