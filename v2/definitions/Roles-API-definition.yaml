@@ -59,7 +59,8 @@ paths:
               properties:
                 admins:
                   type: array
-                  items: {}
+                  items:
+                    type: integer
                   example: []
                 apps:
                   type: array
@@ -71,7 +72,8 @@ paths:
                   example: Sample Role
                 users:
                   type: array
-                  items: {}
+                  items: 
+                    type: integer
                   example: []
             example:
               admins: []
