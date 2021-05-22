@@ -132,7 +132,9 @@ paths:
                 $ref: '#/components/schemas/Error'
     delete:
       summary: Delete Role
-      description: Delete Role
+      description: 
+        Use this API to delete a Role.
+        BE CAREFUL. This operation is final and cannot be undone.
       operationId: deleteRole
       responses:
         "200":
