@@ -154,6 +154,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "422":
+          description: Indicates that the syntax of the request is good but a value supplied is not valid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: ""
           content:
