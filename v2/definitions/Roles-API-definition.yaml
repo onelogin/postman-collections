@@ -453,7 +453,12 @@ components:
           required:
             - id
             - name
-          properties
+          properties:
+            id:
+              type: integer
+              format: int32
+            name:
+              type: string
     Error:
       type: object
       required:
