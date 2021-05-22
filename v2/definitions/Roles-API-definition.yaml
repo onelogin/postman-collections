@@ -253,7 +253,7 @@ paths:
           application/json:
             schema:
               type: array
-              description: Set user_id values in array.
+              description: Set user_id values in array, for example [123, 456, 789]
               items:
                 type: integer
                 example: [123, 456, 789]
