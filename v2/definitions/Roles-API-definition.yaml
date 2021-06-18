@@ -55,6 +55,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+        "400":
+          description: Usually describes that your request's payload is invalid. One or more validations failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         default:
           description: ""
           content:
