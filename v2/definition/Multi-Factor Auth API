@@ -1,0 +1,588 @@
+---
+openapi: 3.0.3
+info:
+  title: MFA v2 - OneLogin API
+  version: 2.0.0
+  contact: {}
+servers:
+  - url: "https://{{api-domain}}"
+paths:
+  "/api/2/mfa/users/{user_id}/devices":
+    get:
+      tags:
+        - "users/{user id}"
+        - devices
+      summary: get user devices
+      description: Get a user authentication devices
+      operationId: getUserDevices
+      responses:
+        "200":
+          description: A list of authentication devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    default:
+                      type: string
+                      example: "<boolean>"
+                    type:
+                      type: string
+                      example: boolean
+              examples:
+                A list of authentication devices:
+                  value:
+                    - default: "<boolean>"
+                      type: boolean
+                    - default: "<boolean>"
+                      type: boolean
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+  "/api/2/mfa/users/{user_id}/devices/{device_id}":
+    delete:
+      tags:
+        - "users/{user id}"
+        - devices
+      summary: delete user device
+      description: "Delete a user\\'s authentication device"
+      operationId: deleteUserDevice
+      responses:
+        "204":
+          description: The device has been deleted
+          content:
+            text/plain:
+              examples:
+                The device has been deleted:
+                  value: ""
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+      - name: device_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "<integer>"
+        description: (Required) ID of the device
+  "/api/2/mfa/users/{user_id}/factors":
+    get:
+      tags:
+        - "users/{user id}"
+      summary: get user factors
+      description: "Get a user\\'s available authentication factors"
+      operationId: getUserFactors
+      responses:
+        "200":
+          description: A list of authentication factors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    auth_factor_name:
+                      type: string
+                      example: "<string>"
+                    factor_id:
+                      type: string
+                      example: "<string>"
+                    name:
+                      type: string
+                      example: "<string>"
+              examples:
+                A list of authentication factors:
+                  value:
+                    - auth_factor_name: "<string>"
+                      factor_id: "<string>"
+                      name: "<string>"
+                    - auth_factor_name: "<string>"
+                      factor_id: "<string>"
+                      name: "<string>"
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+        description: (Required) ID of the user
+  "/api/2/mfa/users/{user_id}/mfa_token":
+    post:
+      tags:
+        - "users/{user id}"
+      summary: issue user temp otp
+      description: "Create new MFA token on the user's account"
+      operationId: issueUserTempOtp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expires_in:
+                  type: number
+                  example: 120
+                reusable:
+                  type: boolean
+                  example: false
+            example:
+              expires_in: 120
+              reusable: false
+      responses:
+        "201":
+          description: Created Mfa Token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  expires_at:
+                    type: string
+                    example: "2020-06-26T21:52:56Z"
+                  mfa_token:
+                    type: string
+                    example: UIOWE787979
+                  reusable:
+                    type: boolean
+                    example: true
+              examples:
+                Created Mfa Token:
+                  value:
+                    expires_at: "2020-06-26T21:52:56Z"
+                    mfa_token: UIOWE787979
+                    reusable: true
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+        description: "(Required) The user's id"
+  "/api/2/mfa/users/{user_id}/registrations":
+    post:
+      tags:
+        - "users/{user id}"
+        - registrations
+      summary: create user factor registration
+      description: Create a new registration process
+      operationId: createUserFactorRegistration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                display_name:
+                  type: string
+                  example: SMS
+                factor_id:
+                  type: string
+                  example: "58959"
+            example:
+              display_name: SMS
+              factor_id: "58959"
+      responses:
+        "201":
+          description: Create user factor registration
+          headers:
+            Accept-Language:
+              schema:
+                type: string
+                example: "en-US,en;q=1"
+            Cache-Control:
+              schema:
+                type: string
+                example: "no-cache, must-revalidate, no-store"
+            Content-Length:
+              schema:
+                type: string
+                example: "186"
+            Date:
+              schema:
+                type: string
+                example: "Wed, 22 Jul 2020 18:59:30 GMT"
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Request-Id:
+              schema:
+                type: string
+                example: 5F188C90-49E1609A-D47D-0A0B03ED-01BB-2869-1581
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth_factor_name:
+                    type: string
+                    example: SMS
+                  expires_at:
+                    type: string
+                    example: "2020-07-22T19:01:29Z"
+                  id:
+                    type: string
+                    example: 44aa6883-5048-4cd5-8cb2-64d47784230c
+                  status:
+                    type: string
+                    example: pending
+                  type_display_name:
+                    type: string
+                    example: OneLogin SMS
+                  user_display_name:
+                    type: string
+                    example: SMS
+              examples:
+                Create user factor registration:
+                  value:
+                    auth_factor_name: SMS
+                    expires_at: "2020-07-22T19:01:29Z"
+                    id: 44aa6883-5048-4cd5-8cb2-64d47784230c
+                    status: pending
+                    type_display_name: OneLogin SMS
+                    user_display_name: SMS
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+        description: "(Required) The user's id"
+  "/api/2/mfa/users/{user_id}/registrations/{registration_id}":
+    get:
+      tags:
+        - "users/{user id}"
+        - registrations
+        - "{registration id}"
+      summary: get user registration
+      description: Get registration state by id
+      operationId: getUserRegistration
+      responses:
+        "200":
+          description: Get user registration
+          headers:
+            Accept-Language:
+              schema:
+                type: string
+                example: "en-US,en;q=1"
+            Cache-Control:
+              schema:
+                type: string
+                example: "no-cache, must-revalidate, no-store"
+            Content-Length:
+              schema:
+                type: string
+                example: "64"
+            Date:
+              schema:
+                type: string
+                example: "Wed, 22 Jul 2020 18:58:14 GMT"
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Request-Id:
+              schema:
+                type: string
+                example: 5F188C46-49E1609A-D47B-0A0B033A-01BB-11459E-43E7
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: ca332b26-0d83-444f-956b-0dbf004a3f03
+                  status:
+                    type: string
+                    example: pending
+              examples:
+                Get user registration:
+                  value:
+                    id: ca332b26-0d83-444f-956b-0dbf004a3f03
+                    status: pending
+    put:
+      tags:
+        - "users/{user id}"
+        - registrations
+        - "{registration id}"
+      summary: verify user registration
+      description: Submit an otp for verification.
+      operationId: verifyUserRegistration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  example: 506C45
+            example:
+              otp: 506C45
+      responses:
+        "200":
+          description: Verify user registration
+          headers:
+            Accept-Language:
+              schema:
+                type: string
+                example: "en-US,en;q=1"
+            Cache-Control:
+              schema:
+                type: string
+                example: "no-cache, must-revalidate, no-store"
+            Content-Length:
+              schema:
+                type: string
+                example: "87"
+            Date:
+              schema:
+                type: string
+                example: "Wed, 22 Jul 2020 19:00:47 GMT"
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            X-Request-Id:
+              schema:
+                type: string
+                example: 5F188CDE-49E1609A-D480-0A0B0591-01BB-3589-0813
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  device_id:
+                    type: string
+                    example: "3926157"
+                  id:
+                    type: string
+                    example: 44aa6883-5048-4cd5-8cb2-64d47784230c
+                  status:
+                    type: string
+                    example: accepted
+              examples:
+                Verify user registration:
+                  value:
+                    device_id: "3926157"
+                    id: 44aa6883-5048-4cd5-8cb2-64d47784230c
+                    status: accepted
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+      - name: registration_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "<UUID>"
+        description: (Required) The id of a registration
+  "/api/2/mfa/users/{user_id}/verifications":
+    post:
+      tags:
+        - "users/{user id}"
+        - verifications
+      summary: create user device verification
+      description: Create a new verification process
+      operationId: createUserDeviceVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_id:
+                  type: string
+                  example: "3920371"
+                expires_in:
+                  type: number
+                  example: 240
+            example:
+              device_id: "3920371"
+              expires_in: 240
+      responses:
+        "201":
+          description: Created verification flow
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  auth_factor_name:
+                    type: string
+                    example: SMS
+                  device_id:
+                    type: string
+                    example: "489339"
+                  expires_at:
+                    type: string
+                    example: "2020-07-11T22:24:50Z"
+                  factor_data:
+                    type: object
+                    properties:
+                      totp_url:
+                        type: string
+                        example: "<string>"
+                      verification_token:
+                        type: string
+                        example: "<string>"
+                  id:
+                    type: string
+                    example: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                  status:
+                    type: string
+                    example: pending
+                  type_display_name:
+                    type: string
+                    example: OneLogin SMS
+                  user_display_name:
+                    type: string
+                    example: Testing SMS DEMO
+                  user_id:
+                    type: number
+                    example: 2323
+              examples:
+                Created verification flow:
+                  value:
+                    auth_factor_name: SMS
+                    device_id: "489339"
+                    expires_at: "2020-07-11T22:24:50Z"
+                    factor_data:
+                      totp_url: "<string>"
+                      verification_token: "<string>"
+                    id: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                    status: pending
+                    type_display_name: OneLogin SMS
+                    user_display_name: Testing SMS DEMO
+                    user_id: 2323
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+        description: "(Required) The user's id"
+  "/api/2/mfa/users/{user_id}/verifications/{verification_id}":
+    get:
+      tags:
+        - "users/{user id}"
+        - verifications
+        - "{verification id}"
+      summary: get user verification
+      description: Get verification state by id
+      operationId: getUserVerification
+      responses:
+        "200":
+          description: Retrieved verification state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  device_id:
+                    type: string
+                    example: "331991"
+                  expires_at:
+                    type: string
+                    example: "2020-07-11T22:24:50Z"
+                  id:
+                    type: string
+                    example: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                  status:
+                    type: string
+                    example: pending
+              examples:
+                Retrieved verification state:
+                  value:
+                    device_id: "331991"
+                    expires_at: "2020-07-11T22:24:50Z"
+                    id: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                    status: pending
+    put:
+      tags:
+        - "users/{user id}"
+        - verifications
+        - "{verification id}"
+      summary: verify user verification
+      description: Submit an otp for verification.
+      operationId: verifyUserVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+                  example: 42CFA7
+            example:
+              otp: 42CFA7
+      responses:
+        "200":
+          description: Verification code received. State updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  device_id:
+                    type: string
+                    example: "331991"
+                  expires_at:
+                    type: string
+                    example: "2020-07-11T22:24:50Z"
+                  id:
+                    type: string
+                    example: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                  status:
+                    type: string
+                    example: pending
+              examples:
+                Verification code received. State updated.:
+                  value:
+                    device_id: "331991"
+                    expires_at: "2020-07-11T22:24:50Z"
+                    id: 5a0ba80a-39a1-4627-9a8b-1273278b34ee
+                    status: pending
+    parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "{{user_id}}"
+        description: "(Required) The user's id"
+      - name: verification_id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: "<UUID>"
+        description: (Required) The id of a verification
+tags:
+  - name: "users/{user id}"
+  - name: registrations
+  - name: "{registration id}"
+  - name: devices
+  - name: verifications
+  - name: "{verification id}"
