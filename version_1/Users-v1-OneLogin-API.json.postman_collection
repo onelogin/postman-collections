@@ -1,0 +1,703 @@
+{
+	"info": {
+		"_postman_id": "aa4a0b1e-6815-4348-afc6-e70ffac41657",
+		"name": "Users v1 - OneLogin API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by Username",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users?username={{username}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "{{username}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users Assigned to a Role",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users?role_id={{role_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "role_id",
+							"value": "{{role_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users Created Within a Timeframe",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users?since=2013-11-19T01:19:34.776Z&until=2014-12-19T02:02:38.817Z",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "since",
+							"value": "2013-11-19T01:19:34.776Z"
+						},
+						{
+							"key": "until",
+							"value": "2014-12-19T02:02:38.817Z"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by sAMAccountName",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users?samaccountname={{samaccountname}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					],
+					"query": [
+						{
+							"key": "samaccountname",
+							"value": "{{samaccountname}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Apps for a User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/apps",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"apps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Roles for a User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/roles",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Custom Attributes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/custom_attributes",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"custom_attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstname\":\"<firstname>\",\n  \"lastname\":\"<lastname>\",\n  \"email\":\"<email>\",\n  \"username\":\"<username>\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Session Login Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username_or_email\": \"<username_or_email>\", \"password\": \"<password>\", \"subdomain\": \"<subdomain>\" }"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/login/auth",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"login",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Factor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"otp_token\": \"<otp_token>\",\n    \"device_id\": \"<device_id>\",\n    \"state_token\": \"<state_token>\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/login/verify_factor",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"login",
+						"verify_factor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Session",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"session_token\":\"<session_token>\"\n}"
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/session_via_api_token",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"session_via_api_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"lastname\":\"<lastname>\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Roles for a User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"role_id_array\":[ <role_id> , <role_id> ]\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/add_roles",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"add_roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Roles for a User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"role_id_array\":[ <role_id>, <role_id> ]\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/remove_roles",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"remove_roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Password Using ID in Cleartext",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"password\":\"<password>\",\n\"password_confirmation\":\"<password_confirmation>\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/set_password_clear_text/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"set_password_clear_text",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Password Using ID and SHA-256 and Salt",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"password\": \"<sha-256-hashed-password>\",\n    \"password_confirmation\": \"<sha-256-hashed-password-confirmation>\",\n    \"password_algorithm\": \"salt+sha256\",\n    \"password_salt\": \"<salt>\"\n  }"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/set_password_using_salt/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"set_password_using_salt",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set Custom Attributes for User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"custom_attributes\":{\r\n      \"<custom_attribute_shortname1>\":\"<value>\",\r\n      \"<custom_attribute_shortname2>\":\"<value>\"\r\n   }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/set_custom_attributes",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"set_custom_attributes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log User Out",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer: {{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/logout",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lock User Account",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"locked_until\": <integer_in_minutes> }"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/lock_user",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}",
+						"lock_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

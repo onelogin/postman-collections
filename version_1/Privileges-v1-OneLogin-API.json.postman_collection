@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "bc8bb742-e7bb-4582-8d24-03cd315b1024",
+		"name": "Privileges v1 - OneLogin API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Privileges",
+			"item": [
+				{
+					"name": "List Privileges",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.{{us_or_eu}}.onelogin.com/api/1/privileges",
+							"protocol": "https",
+							"host": [
+								"api",
+								"{{us_or_eu}}",
+								"onelogin",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges"
+							]
+						},
+						"description": "List"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Super Administrator\",\n\t\"privilege\":  {\n\t\t\"Version\": \"2018-05-18\",\n\t\t\"Statement\": [{\n\t\t\t\"Effect\": \"Allow\",\n\t\t\t\"Action\": [\n\t\t\t\t\"*\"\n\t\t\t],\n\t\t\t\"Scope\": [\"*\"]\n\t\t}]\n\t}\n}\n"
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges"
+							]
+						},
+						"description": "Create privilege"
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"User Administrator\",\n\t\"privilege\":  {\n\t\t\"Version\": \"2018-05-18\",\n\t\t\"Statement\": [{\n\t\t\t\"Effect\": \"Allow\",\n\t\t\t\"Action\": [\n\t\t\t\t\"users:Get\",\n\t\t\t\t\"users:Unlock\",\n\t\t\t\t\"users:ResetPassword\",\n\t\t\t\t\"users:ForceLogout\"\n\t\t\t],\n\t\t\t\"Scope\": [\"roles/12\"]\n\t\t}]\n\t}\n}\n\n"
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}"
+							]
+						},
+						"description": "Update"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}"
+							]
+						},
+						"description": "List"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}"
+							]
+						},
+						"description": "Delete"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles Privileges",
+			"item": [
+				{
+					"name": "Get Roles assigned to Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"roles"
+							]
+						},
+						"description": "List roles for privilege"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign a Privilege to Roles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"roles\": [{{role_id}}]\n}\n"
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"roles"
+							]
+						},
+						"description": "Add roles to privilege "
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a Privilege from a Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles/{{role_id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"roles",
+								"{{role_id}}"
+							]
+						},
+						"description": "Add roles to privilege"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Privileges",
+			"item": [
+				{
+					"name": "Get Users assigned to a Privilege",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"users"
+							]
+						},
+						"description": "Add privilege to user"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign a Privilege to Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"users\": [{{user_id}}]\n}\n"
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"users"
+							]
+						},
+						"description": "Add users to privilege"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove a Privilege from a User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users/{{user_id}}",
+							"protocol": "https",
+							"host": [
+								"{{api-domain}}"
+							],
+							"path": [
+								"api",
+								"1",
+								"privileges",
+								"{{privilege_id}}",
+								"users",
+								"{{user_id}}"
+							]
+						},
+						"description": "Add privilege to group of users"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

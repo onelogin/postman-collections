@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "dc6474af-3347-eca5-b819-60bdc1f5ba1c",
+		"name": "OpenID Connect v1 - OneLogin API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21353551"
+	},
+	"item": [
+		{
+			"name": "Implicit Flow",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/auth?client_id={{OIDC_client_id}}&nonce={{$guid}}&redirect_uri={{OIDC_redirect_uri}}&response_type=id_token&scope=openid&state=",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "{{OIDC_client_id}}"
+						},
+						{
+							"key": "nonce",
+							"value": "{{$guid}}"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{OIDC_redirect_uri}}"
+						},
+						{
+							"key": "response_type",
+							"value": "id_token"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						},
+						{
+							"key": "state",
+							"value": ""
+						},
+						{
+							"key": "resource",
+							"value": null,
+							"disabled": true
+						}
+					]
+				},
+				"description": "This GET call is part of the Implicit Flow and must be made via a web browser. The user will be redirected to login at OneLogin and then redirected back again to the registered redirect_uri."
+			},
+			"response": []
+		},
+		{
+			"name": "Authorization Code Flow",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/auth?client_id={{OIDC_client_id}}&nonce={{$guid}}&redirect_uri={{OIDC_redirect_uri}}&response_type=code&scope=openid&state=",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"auth"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "{{OIDC_client_id}}"
+						},
+						{
+							"key": "nonce",
+							"value": "{{$guid}}"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{OIDC_redirect_uri}}"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "openid"
+						},
+						{
+							"key": "state",
+							"value": ""
+						},
+						{
+							"key": "resource",
+							"value": "",
+							"disabled": true
+						}
+					]
+				},
+				"description": "This GET call is part of the Authentication Flow and must be made via a web browser. The user will be redirected to login at OneLogin and then redirected back again to the registered redirect_uri."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Access Token via Authorization Code",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "code",
+							"value": "{{OIDC_authorization_code}}",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "{{OIDC_redirect_uri}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client Credentials Grant",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Password Grant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"OIDC_access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"OIDC_refresh_token\", jsonData.refreshToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "{{OIDC_client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "openid profile email",
+							"type": "text"
+						},
+						{
+							"key": "response_type",
+							"value": "id_token ",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"value": "https://example.com/contacts",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Introspect Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{OIDC_access_token}}",
+							"type": "text"
+						},
+						{
+							"key": "token_type_hint",
+							"value": "access_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token/introspection",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token",
+						"introspection"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"OIDC_access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"OIDC_refresh_token\", jsonData.refresh_token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refresh_token",
+							"value": "{{OIDC_refresh_token}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{OIDC_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{OIDC_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "token",
+							"value": "{{OIDC_access_token}}",
+							"type": "text"
+						},
+						{
+							"key": "token_type_hint",
+							"value": "access_token",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/token/revocation",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"token",
+						"revocation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Provider Configuration Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/.well-known/openid-configuration",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						".well-known",
+						"openid-configuration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{OIDC_access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{subdomain}}.onelogin.com/oidc/1/me",
+					"protocol": "https",
+					"host": [
+						"{{subdomain}}",
+						"onelogin",
+						"com"
+					],
+					"path": [
+						"oidc",
+						"1",
+						"me"
+					]
+				},
+				"description": "Returns user information associated with the session"
+			},
+			"response": []
+		}
+	]
+}

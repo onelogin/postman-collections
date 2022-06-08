@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "05f6bd70-cf6b-90fd-d18f-52dc0c2a7b45",
+		"name": "Groups v1 - OneLogin API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Groups",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/groups",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Group by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/api/1/groups/{{group_id}}",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"1",
+						"groups",
+						"{{group_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

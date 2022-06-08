@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "6a0c54d2-5508-d0ca-50b3-11a4b99487f5",
+		"name": "Access Tokens - OneLogin API",
+		"description": "Generate an access token and refresh token that you can use to call our resource APIs. This Collection uses version 2 of the OneLogin Generate Token endpoint for API version /1. Gotta love our confusing versioning scheme.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate Tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94cea0c3-5f38-4b92-b53f-023dc4760d6c",
+						"exec": [
+							"// For Convenience",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+							"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+							"",
+							"// Tests ",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"A bearer token is returned\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.token_type).to.eql(\"bearer\");",
+							"});",
+							"",
+							"var schema = {",
+							"  \"properties\": {",
+							"    \"access_token\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"refresh_token\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"created_at\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"expires_in\": {",
+							"        \"type\": \"integer\"",
+							"    },",
+							"    \"token_type\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"account_id\": {",
+							"        \"type\": \"integer\"",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"grant_type\":\"client_credentials\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/auth/oauth2/v2/token",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"auth",
+						"oauth2",
+						"v2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Rate Limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e6a019b-5f1b-4a92-9baa-b01f56540c7f",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"// Tests ",
+							"pm.test(\"Response time is less than 300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"properties\": {",
+							"    \"data\": {",
+							"        \"type\": \"object\",",
+							"        \"properties\": {",
+							"            \"X-RateLimit-Limit\":{",
+							"                \"type\":\"integer\"",
+							"            },",
+							"            \"X-RateLimit-Remaining\":{",
+							"                \"type\":\"integer\"",
+							"            },",
+							"            \"X-RateLimit-Reset\":{",
+							"                \"type\":\"integer\"",
+							"            }            ",
+							"        }",
+							"    }",
+							"  }",
+							"};",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer:{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "https://{{api-domain}}/auth/rate_limit",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"auth",
+						"rate_limit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Revoke Tokens",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f92a312a-48f2-423d-b9c9-0954a5d46832",
+						"exec": [
+							"// Tests ",
+							"pm.test(\"Response time is less than 300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(300);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"value": true,
+							"type": "boolean"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"access_token\":\"{{access_token}}\"\n}"
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/auth/oauth2/revoke",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"auth",
+						"oauth2",
+						"revoke"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
