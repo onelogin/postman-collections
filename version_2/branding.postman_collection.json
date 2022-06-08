@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "99a63b2f-9be9-49f9-80da-12a5d4ee3d40",
+		"name": "OneLogin Branding API",
+		"description": "The API for managing the Branding resource in OneLogin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List Brandings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/branding",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Branding",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/branding/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Branding",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"enabled\": true,\n  \"name\": \"<name>\",\n  \"custom_support_enabled\": false,\n  \"custom_color\": \"<#hex_code_for_primary_color>\",\n  \"custom_accent_color\": \"#hex_code_for_accent_color\",\n  \"custom_masking_color\": \"#hex_code_for_masking_color\",\n  \"custom_masking_opacity\": 0,\n  \"enable_custom_label_for_login_screen\": true,\n  \"custom_label_text_for_login_screen\": \"<label_text>\",\n  \"login_instruction_title\": \"<login_instruction_title>\",\n  \"login_instruction\": \"<login_instructions>\",\n  \"hide_onelogin_footer\": true,\n  \"mfa_enrollment_message\": \"<mfa_enroll_message>\",\n  \"background\": \"<base_64_encoded_image_as_string (cat path_to_jpg_or_png_5mb_max | base64)>\",\n  \"logo\": \"<base_64_encoded_image_as_string (cat path_to_png_1mb_max | base64)>\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/branding",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Branding",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"enabled\": true,\n  \"name\": \"<name>\",\n  \"custom_support_enabled\": false,\n  \"custom_color\": \"<#hex_code_for_primary_color>\",\n  \"custom_accent_color\": \"#hex_code_for_accent_color\",\n  \"custom_masking_color\": \"#hex_code_for_masking_color\",\n  \"custom_masking_opacity\": 0,\n  \"enable_custom_label_for_login_screen\": true,\n  \"custom_label_text_for_login_screen\": \"<label_text>\",\n  \"login_instruction_title\": \"<login_instruction_title>\",\n  \"login_instruction\": \"<login_instructions>\",\n  \"hide_onelogin_footer\": true,\n  \"mfa_enrollment_message\": \"<mfa_enroll_message>\",\n  \"background\": \"<base_64_encoded_image_as_string (cat path_to_jpg_or_png_5mb_max | base64)>\",\n  \"logo\": \"<base_64_encoded_image_as_string (cat path_to_png_1mb_max | base64)>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/2/branding/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Branding",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/branding/:id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Apps Associated to Branding",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/2/branding/:id/apps",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"branding",
+						":id",
+						"apps"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "500ffa70-b79a-40c7-a415-d4532c085e1b",
+				"type": "text/javascript",
+				"exec": [
+					"var basicAuthCreds = btoa(`${pm.environment.get(\"client-id\")}:${pm.environment.get(\"client-secret\")}`);",
+					"var tokenRequest = {",
+					"    url: pm.variables.replaceIn(\"{{url}}/auth/oauth2/v2/token\"),",
+					"    method: 'POST',",
+					"    header: {",
+					"      'Content-Type': 'application/json',",
+					"      'Authorization': `Basic ${basicAuthCreds}`",
+					"    },",
+					"    body: { ",
+					"        mode: 'raw', ",
+					"        raw: JSON.stringify({\"grant_type\":\"client_credentials\"})",
+					"    }",
+					"}",
+					"",
+					"pm.sendRequest(tokenRequest, function (err, response) {",
+					"    var jsonData = response.json();",
+					"    postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+					"    postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "aa7666bd-ff9c-445c-867f-f477f3a26881",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f52a9be7-c4c7-495f-8690-201a98f7d54d",
+			"key": "client-id",
+			"value": ""
+		},
+		{
+			"id": "b7de24a0-5058-442e-b0e0-887d08282bd5",
+			"key": "client-secret",
+			"value": ""
+		},
+		{
+			"id": "d1cb9326-99c5-4650-b1c8-e19df5c3ed29",
+			"key": "access-token",
+			"value": ""
+		},
+		{
+			"id": "46bcfa5f-ea23-4a89-ba17-b1dfdecfda0b",
+			"key": "url",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "8fa0c322-e5bb-42db-9188-8e6736ef3b6b",
+		"name": "Smart MFA - OneLogin API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21353551"
+	},
+	"item": [
+		{
+			"name": "Validate / Register User via SMS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns MFA\", function () {",
+							"    const jsonData = pm.response.json();",
+							"    pm.expect(jsonData.mfa.otp_sent).to.eql(true);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"state_token\", jsonData.mfa.state_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_identifier\": \"mike.tester\",\n  \"phone\": \"+155512341234\",\n  \"context\": {\n    \"ip\": \"120.118.218.225\",\n    \"user_agent\": \"Mozilla/5.0 (Windows; U; Windows NT 6.0) AppleWebKit/531.1.0 (KHTML, like Gecko) Chrome/21.0.843.0 Safari/531.1.0\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/2/smart-mfa/",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"smart-mfa",
+						""
+					]
+				},
+				"description": "This request uses minimum required information to validate a new or existing user. If the risk score is above the threshold a one time token will be sent to the users phone via SMS."
+			},
+			"response": []
+		},
+		{
+			"name": "Validate / Register User via Email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"state_token\", jsonData.mfa.state_token);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"user_identifier\": \"mike.tester\",\n  \"email\": \"mike.tester@onelogin.com\",\n  \"context\": {\n    \"ip\": \"120.118.218.228\",\n    \"user_agent\": \"Mozilla/5.0 (Windows; U; Windows NT 6.0) AppleWebKit/531.1.0 (KHTML, like Gecko) Chrome/21.0.843.0 Safari/531.1.0\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/2/smart-mfa/",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"smart-mfa",
+						""
+					]
+				},
+				"description": "This request uses minimum required information to validate a new or existing user. If the risk score is above the threshold a one time token will be sent to the users phone via Email."
+			},
+			"response": []
+		},
+		{
+			"name": "Verify Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"state_token\": \"{{state_token}}\",\n\t\"otp_token\": \"7F2164\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{api-domain}}/api/2/smart-mfa/verify",
+					"protocol": "https",
+					"host": [
+						"{{api-domain}}"
+					],
+					"path": [
+						"api",
+						"2",
+						"smart-mfa",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
