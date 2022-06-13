@@ -1,0 +1,5036 @@
+{
+	"info": {
+		"_postman_id": "60e3c4dd-b172-4eb3-8356-d9135eb5e97f",
+		"name": "mono_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20762171"
+	},
+	"item": [
+		{
+			"name": "OAuth 2.0 Access Tokens",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Generate Tokens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// For Convenience",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+											"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+											"",
+											"// Tests ",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"A bearer token is returned\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.token_type).to.eql(\"bearer\");",
+											"});",
+											"",
+											"var schema = {",
+											"  \"properties\": {",
+											"    \"access_token\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"refresh_token\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"created_at\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"expires_in\": {",
+											"        \"type\": \"integer\"",
+											"    },",
+											"    \"token_type\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"account_id\": {",
+											"        \"type\": \"integer\"",
+											"    }",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{client_secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{client_id}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"grant_type\":\"client_credentials\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/auth/oauth2/v2/token",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"oauth2",
+										"v2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Rate Limit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"",
+											"// Tests ",
+											"pm.test(\"Response time is less than 300ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = {",
+											"  \"properties\": {",
+											"    \"data\": {",
+											"        \"type\": \"object\",",
+											"        \"properties\": {",
+											"            \"X-RateLimit-Limit\":{",
+											"                \"type\":\"integer\"",
+											"            },",
+											"            \"X-RateLimit-Remaining\":{",
+											"                \"type\":\"integer\"",
+											"            },",
+											"            \"X-RateLimit-Reset\":{",
+											"                \"type\":\"integer\"",
+											"            }            ",
+											"        }",
+											"    }",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/auth/rate_limit",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"rate_limit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke Tokens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Tests ",
+											"pm.test(\"Response time is less than 300ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{client_secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{client_id}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"access_token\":\"{{access_token}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/auth/oauth2/revoke",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"oauth2",
+										"revoke"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Generate Tokens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// For Convenience",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"access_token\", jsonData.access_token);",
+											"postman.setEnvironmentVariable(\"refresh_token\", jsonData.refresh_token);",
+											"",
+											"// Tests ",
+											"pm.test(\"Response time is less than 500ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"A bearer token is returned\", function () {",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.token_type).to.eql(\"bearer\");",
+											"});",
+											"",
+											"var schema = {",
+											"  \"properties\": {",
+											"    \"access_token\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"refresh_token\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"created_at\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"expires_in\": {",
+											"        \"type\": \"integer\"",
+											"    },",
+											"    \"token_type\": {",
+											"        \"type\": \"string\"",
+											"    },",
+											"    \"account_id\": {",
+											"        \"type\": \"integer\"",
+											"    }",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{client_secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{client_id}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"grant_type\":\"client_credentials\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/auth/oauth2/v2/token",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"oauth2",
+										"v2",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Rate Limit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"",
+											"// Tests ",
+											"pm.test(\"Response time is less than 300ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var schema = {",
+											"  \"properties\": {",
+											"    \"data\": {",
+											"        \"type\": \"object\",",
+											"        \"properties\": {",
+											"            \"X-RateLimit-Limit\":{",
+											"                \"type\":\"integer\"",
+											"            },",
+											"            \"X-RateLimit-Remaining\":{",
+											"                \"type\":\"integer\"",
+											"            },",
+											"            \"X-RateLimit-Reset\":{",
+											"                \"type\":\"integer\"",
+											"            }            ",
+											"        }",
+											"    }",
+											"  }",
+											"};",
+											"",
+											"pm.test('Schema is valid', function() {",
+											"  pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/auth/rate_limit",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"rate_limit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Revoke Tokens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Tests ",
+											"pm.test(\"Response time is less than 300ms\", function () {",
+											"    pm.expect(pm.response.responseTime).to.be.below(300);",
+											"});",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "{{client_secret}}",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "{{client_id}}",
+											"type": "string"
+										},
+										{
+											"key": "saveHelperData",
+											"value": true,
+											"type": "boolean"
+										},
+										{
+											"key": "showPassword",
+											"value": false,
+											"type": "boolean"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"access_token\":\"{{access_token}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/auth/oauth2/revoke",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"auth",
+										"oauth2",
+										"revoke"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "API Authorization",
+			"item": [
+				{
+					"name": "V1",
+					"item": []
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Scopes",
+							"item": [
+								{
+									"name": "Get Api Auth Server Scopes",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/scopes",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"scopes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Api Auth Server Scope",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"value\": \"custom:scope\",\n\t\"description\": \"A custom scope\"\n}\n\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/scopes",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"scopes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Api Auth Server Scope",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n \"value\": \"write:contacts\",\n \"description\": \"Create some contacts\"\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/scopes/{{scope_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"scopes",
+												"{{scope_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Api Auth Server Scope",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/scopes/{{scope_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"scopes",
+												"{{scope_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Claims",
+							"item": [
+								{
+									"name": "Get Api Auth Server Claims",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/claims",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"claims"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Api Auth Server Claim",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"email_address\"\n}\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/claims",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"claims"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Api Auth Server Claim",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_attribute_mappings\": \"email\",\n    \"label\": \"email_address\",\n    \"name\": \"email_address\"\n}\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/claims/{{claim_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"claims",
+												"{{claim_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Api Auth Server Claim",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/claims/{{claim_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"claims",
+												"{{claim_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Client Apps",
+							"item": [
+								{
+									"name": "Get Api Auth Server Clients",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/clients",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"clients"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add Api Auth Server Client",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"app_id\": 1026152,\n\t\"scopes\": [31]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/clients",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"clients"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Api Auth Server Client",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"scopes\": [51,53]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/clients/{{client_app_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"clients",
+												"{{client_app_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Remove Api Auth Server Client",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/clients/{{client_app_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"api_authorizations",
+												"{{api_auth_id}}",
+												"clients",
+												"{{client_app_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Api Auth Servers",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/api_authorizations",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"api_authorizations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Api Auth Server",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is an api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 10,\n      \"refresh_token_expiration_minutes\": 30\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/api_authorizations",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"api_authorizations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Api Auth Server",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"api_authorizations",
+										"{{api_auth_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Api Auth Server",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is an api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 15,\n      \"refresh_token_expiration_minutes\": 35\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"api_authorizations",
+										"{{api_auth_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Api Auth Server",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"api_authorizations",
+										"{{api_auth_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Apps",
+			"item": [
+				{
+					"name": "V1",
+					"item": []
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Rules",
+							"item": [
+								{
+									"name": "List Rules",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules"
+											],
+											"query": [
+												{
+													"key": "has_condition",
+													"value": "has_role:{{role_id}}",
+													"disabled": true
+												},
+												{
+													"key": "has_condition_type",
+													"value": "none",
+													"disabled": true
+												},
+												{
+													"key": "has_action",
+													"value": "set_status:*",
+													"disabled": true
+												},
+												{
+													"key": "has_action_type",
+													"value": "none",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Rule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/{{rule_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"{{rule_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Rule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"pm.test(\"Response ID is not null\", function () {",
+													"    pm.response.json().id.not.equal(null);",
+													"});",
+													"",
+													"postman.setEnvironmentVariable(\"mapping_id\", pm.response.json().id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Suspend after 90 days inactive\",\n    \"match\": \"all\",\n    \"position\": null,\n    \"enabled\": true,\n    \"conditions\": [\n        {\n            \"source\": \"last_login\",\n            \"operator\": \">\",\n            \"value\": \"90\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_status\",\n            \"value\": [\"2\"]\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/mappings",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"mappings"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Rule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Response ID is not null\", function () {",
+													"    pm.response.json().id.not.equal(null);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Sample Rule Updated\",\n    \"match\": \"all\",\n    \"enabled\": true,\n    \"position\": 1,\n    \"conditions\": [\n        {\n            \"source\": \"has_role\",\n            \"operator\": \"ri\",\n            \"value\": \"272445\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_groups\",\n            \"value\": [\n                \"member_of\"\n            ],\n            \"expression\": \".*\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/{{rule_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"{{rule_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Rule",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {",
+													"    pm.response.to.have.status(204);",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/{{rule_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"{{rule_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Conditions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/conditions",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"conditions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Conditions Operators",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/conditions/{{rule_condition_value}}/operators",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"conditions",
+												"{{rule_condition_value}}",
+												"operators"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Conditions Values",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/conditions/{{rule_condition_value}}/values",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"conditions",
+												"{{rule_condition_value}}",
+												"values"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Actions",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/actions",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"actions"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "List Actions Values",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/actions/{{rule_action_value}}/values",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"actions",
+												"{{rule_action_value}}",
+												"values"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Bulk Sort",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "[\n\t204500,\n    204499,\n    204503,\n    204502,\n    204501\n]",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/rules/sort",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"apps",
+												"{{app_id}}",
+												"rules",
+												"sort"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Connectors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/connectors",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"connectors"
+									],
+									"query": [
+										{
+											"key": "auth_method",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Apps",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps"
+									],
+									"query": [
+										{
+											"key": "connector_id",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "auth_method",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "policy_id",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "id,name,user_count",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get App",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps",
+										"{{app_id}}"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "connector_id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create App",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"connector_id\": 50534,\n  \"name\": \"Amazon Web Services (AWS) Multi Role\",\n  \"description\": \"\",\n  \"visible\": true,\n  \"sso\": {\n    \"certificate\": {\n      \"id\": 170216\n    }\n  },\n  \"configuration\": {\n    \"signature_algorithm\": \"SHA-1\"\n  },\n  \"parameters\": {\n    \"saml_username\": {\n      \"user_attribute_mappings\": \"email\"\n    }\n  }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "connector_id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update App",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"parameters\": {\n\t    \"saml_username\": {\n\t      \"user_attribute_mappings\": \"email\"\n\t    }\n    }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps",
+										"{{app_id}}"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "connector_id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete App",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps",
+										"{{app_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Parameter from App",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/parameters/{{parameter_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps",
+										"{{app_id}}",
+										"parameters",
+										"{{parameter_id}}"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "connector_id",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get App Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/apps/{{app_id}}/users",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"apps",
+										"{{app_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "SAML Assertions",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Generate SAML Assertion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username_or_email\": \"{{username_or_email}}\",\n    \"password\": \"{{password}}\",\n    \"app_id\": \"{{app_id}}\",\n    \"subdomain\":\"{{subdomain}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/saml_assertion",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"saml_assertion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Factor SAML",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"app_id\": \"{{app_id}}\",\n    \"otp_token\": \"{{otp_token}}\",\n    \"device_id\": \"{{device_id}}\",\n    \"state_token\": \"{{state_token}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/saml_assertion/verify_factor",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"saml_assertion",
+										"verify_factor"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Generate SAML Assertion",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username_or_email\": \"{{username_or_email}}\",\n    \"password\": \"{{password}}\",\n    \"app_id\": \"{{app_id}}\",\n    \"subdomain\":\"{{subdomain}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/saml_assertion",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"saml_assertion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Factor SAML",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"app_id\": \"{{app_id}}\",\n    \"otp_token\": \"{{otp_token}}\",\n    \"device_id\": \"{{device_id}}\",\n    \"state_token\": \"{{state_token}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/saml_assertion/verify_factor",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"saml_assertion",
+										"verify_factor"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User Mappings",
+			"item": [
+				{
+					"name": "V1",
+					"item": []
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "List Mappings",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings"
+									],
+									"query": [
+										{
+											"key": "has_condition",
+											"value": "has_role:{{role_id}}",
+											"disabled": true
+										},
+										{
+											"key": "has_condition_type",
+											"value": "none",
+											"disabled": true
+										},
+										{
+											"key": "has_action",
+											"value": "set_status:*",
+											"disabled": true
+										},
+										{
+											"key": "has_action_type",
+											"value": "none",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/{{mapping_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"{{mapping_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Response ID is not null\", function () {",
+											"    pm.response.json().id.not.equal(null);",
+											"});",
+											"",
+											"postman.setEnvironmentVariable(\"mapping_id\", pm.response.json().id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Suspend after 90 days inactive\",\n    \"match\": \"all\",\n    \"position\": null,\n    \"enabled\": true,\n    \"conditions\": [\n        {\n            \"source\": \"last_login\",\n            \"operator\": \">\",\n            \"value\": \"90\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_status\",\n            \"value\": [\"2\"]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Response ID is not null\", function () {",
+											"    pm.response.json().id.not.equal(null);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"My Second Mapping\",\n    \"match\": \"all\",\n    \"enabled\": true,\n    \"position\": 1,\n    \"conditions\": [\n        {\n            \"source\": \"last_login\",\n            \"operator\": \">\",\n            \"value\": \"90\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_status\",\n            \"value\": \"2\"\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/{{mapping_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"{{mapping_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Mapping",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/{{mapping_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"{{mapping_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Conditions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/conditions",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"conditions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Conditions Operators",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/conditions/{{mapping_condition_value}}/operators",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"conditions",
+										"{{mapping_condition_value}}",
+										"operators"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Conditions Values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/conditions/{{mapping_condition_value}}/values",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"conditions",
+										"{{mapping_condition_value}}",
+										"values"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Actions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/actions",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"actions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Actions Values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/actions/{{mapping_action_value}}/values",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"actions",
+										"{{mapping_action_value}}",
+										"values"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Bulk Sort",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[196671,196670,196672,196676,197758]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/mappings/sort",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"mappings",
+										"sort"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Vigilance AI",
+			"item": [
+				{
+					"name": "V1",
+					"item": []
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "Rules",
+							"item": [
+								{
+									"name": "List Rules",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/risk/rules",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"risk",
+												"rules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Rule",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"name\": \"Geoblock\",\n  \"description\": \"Block access for users in these countries\",\n  \"type\": \"blacklist\",\n  \"target\": \"location.address.country_iso_code\",\n  \"source\": null,\n  \"filters\": [\"NZ\", \"AU\"]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/risk/rules",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"risk",
+												"rules"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Rule",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"filters\": [\"0.0.0.0/0\",\"::/0\"]\n}"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/risk/rules/{{rule_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"risk",
+												"rules",
+												"{{rule_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Rule",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/risk/rules/{{rule_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"risk",
+												"rules",
+												"{{rule_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Track an Event",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \"verb\":\"log-in\",\n \"ip\" : \"125.238.248.246\",\n  \"user_agent\" : \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36\",\n  \"user\" : {\n    \"id\"     : \"US_112233\",\n    \"name\"   : \"Eve Smith\"\n  }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/risk/events",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"risk",
+										"events"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Score Summary",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/risk/scores",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"risk",
+										"scores"
+									],
+									"query": [
+										{
+											"key": "before",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "after",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get a Risk Score",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \"ip\" : \"125.238.248.246\",\n  \"user_agent\" : \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36\",\n  \"user\" : {\n    \"id\"     : \"US_112233\",\n    \"name\"   : \"Eve Smith\"\n  }\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/risk/verify",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"risk",
+										"verify"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Get Events",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/events?event_type_id=&client_id=&directory_id=&created_at=&id=&resolution=&since=&until=&user_id=",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"events"
+									],
+									"query": [
+										{
+											"key": "event_type_id",
+											"value": ""
+										},
+										{
+											"key": "client_id",
+											"value": ""
+										},
+										{
+											"key": "directory_id",
+											"value": ""
+										},
+										{
+											"key": "created_at",
+											"value": ""
+										},
+										{
+											"key": "id",
+											"value": ""
+										},
+										{
+											"key": "resolution",
+											"value": ""
+										},
+										{
+											"key": "since",
+											"value": ""
+										},
+										{
+											"key": "until",
+											"value": ""
+										},
+										{
+											"key": "user_id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/events/{{event_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"events",
+										"{{event_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Event Types",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/events/types",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"events",
+										"types"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Get Groups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/groups",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"groups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Group by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/groups/{{group_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"groups",
+										"{{group_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Invite Links",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Generate invite link",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"<user_email>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/invites/get_invite_link",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"invites",
+										"get_invite_link"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send  Invite Link",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"<user_email>\",\n  \"personal_email\":\"<user_personal_email>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/invites/get_invite_link",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"invites",
+										"get_invite_link"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Multi Factor Authentication",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Get Available Factors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/auth_factors",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"auth_factors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Enroll a Factor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"factor_id\": {{factor_id}},\n  \"display_name\":  \"{{name_for_the_factor}}\",\n  \"number\": \"{{phone_number}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"otp_devices"
+									]
+								},
+								"description": "Enroll an Authentication Factor"
+							},
+							"response": []
+						},
+						{
+							"name": "Verify a Factor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"state_token\": \"{{state_token}}\",\n\t\"otp_token\": \"{{otp_token}}\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices/{{device_id}}/verify",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"otp_devices",
+										"{{device_id}}",
+										"verify"
+									]
+								},
+								"description": "Verify a Factor"
+							},
+							"response": []
+						},
+						{
+							"name": "Activate a Factor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"state_token\", jsonData.data[0].state_token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"state_token_expires_in\": 300\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices/{{device_id}}/trigger",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"otp_devices",
+										"{{device_id}}",
+										"trigger"
+									]
+								},
+								"description": "Activate a Factor"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Enrolled Factors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"otp_devices"
+									]
+								},
+								"description": "Get Enrolled Factors"
+							},
+							"response": []
+						},
+						{
+							"name": "Remove an Enrolled Factor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices/{{device_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"otp_devices",
+										"{{device_id}}"
+									]
+								},
+								"description": "Remove an enrolled MFA device for a user"
+							},
+							"response": []
+						},
+						{
+							"name": "Generate Temp MFA Token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"expires_in\": \"300\",\n   \"reusable\": false\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/mfa_token",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"mfa_token"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Privileges",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Privileges",
+							"item": [
+								{
+									"name": "List Privileges",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://api.{{us_or_eu}}.onelogin.com/api/1/privileges",
+											"protocol": "https",
+											"host": [
+												"api",
+												"{{us_or_eu}}",
+												"onelogin",
+												"com"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges"
+											]
+										},
+										"description": "List"
+									},
+									"response": []
+								},
+								{
+									"name": "Create a Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"Super Administrator\",\n\t\"privilege\":  {\n\t\t\"Version\": \"2018-05-18\",\n\t\t\"Statement\": [{\n\t\t\t\"Effect\": \"Allow\",\n\t\t\t\"Action\": [\n\t\t\t\t\"*\"\n\t\t\t],\n\t\t\t\"Scope\": [\"*\"]\n\t\t}]\n\t}\n}\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges"
+											]
+										},
+										"description": "Create privilege"
+									},
+									"response": []
+								},
+								{
+									"name": "Update a Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"User Administrator\",\n\t\"privilege\":  {\n\t\t\"Version\": \"2018-05-18\",\n\t\t\"Statement\": [{\n\t\t\t\"Effect\": \"Allow\",\n\t\t\t\"Action\": [\n\t\t\t\t\"users:Get\",\n\t\t\t\t\"users:Unlock\",\n\t\t\t\t\"users:ResetPassword\",\n\t\t\t\t\"users:ForceLogout\"\n\t\t\t],\n\t\t\t\"Scope\": [\"roles/12\"]\n\t\t}]\n\t}\n}\n\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}"
+											]
+										},
+										"description": "Update"
+									},
+									"response": []
+								},
+								{
+									"name": "Get a Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}"
+											]
+										},
+										"description": "List"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete a Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}"
+											]
+										},
+										"description": "Delete"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Roles Privileges",
+							"item": [
+								{
+									"name": "Get Roles assigned to Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"roles"
+											]
+										},
+										"description": "List roles for privilege"
+									},
+									"response": []
+								},
+								{
+									"name": "Assign a Privilege to Roles",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"roles\": [{{role_id}}]\n}\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"roles"
+											]
+										},
+										"description": "Add roles to privilege "
+									},
+									"response": []
+								},
+								{
+									"name": "Remove a Privilege from a Role",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/roles/{{role_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"roles",
+												"{{role_id}}"
+											]
+										},
+										"description": "Add roles to privilege"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "User Privileges",
+							"item": [
+								{
+									"name": "Get Users assigned to a Privilege",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"users"
+											]
+										},
+										"description": "Add privilege to user"
+									},
+									"response": []
+								},
+								{
+									"name": "Assign a Privilege to Users",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\"users\": [{{user_id}}]\n}\n"
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"users"
+											]
+										},
+										"description": "Add users to privilege"
+									},
+									"response": []
+								},
+								{
+									"name": "Remove a Privilege from a User",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/1/privileges/{{privilege_id}}/users/{{user_id}}",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"1",
+												"privileges",
+												"{{privilege_id}}",
+												"users",
+												"{{user_id}}"
+											]
+										},
+										"description": "Add privilege to group of users"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Get Roles",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/roles",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Role by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/roles/{{role_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"roles",
+										"{{role_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Role by Name",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/roles?name=default",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"roles"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "default"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "Get Users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by Username",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users?username={{username}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "{{username}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Users Assigned to a Role",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users?role_id={{role_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "role_id",
+											"value": "{{role_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Users Created Within a Timeframe",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users?since=2013-11-19T01:19:34.776Z&until=2014-12-19T02:02:38.817Z",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "since",
+											"value": "2013-11-19T01:19:34.776Z"
+										},
+										{
+											"key": "until",
+											"value": "2014-12-19T02:02:38.817Z"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User by sAMAccountName",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users?samaccountname={{samaccountname}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "samaccountname",
+											"value": "{{samaccountname}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Apps for a User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/apps",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"apps"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles for a User",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/roles",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Custom Attributes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/custom_attributes",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"custom_attributes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"firstname\":\"<firstname>\",\n  \"lastname\":\"<lastname>\",\n  \"email\":\"<email>\",\n  \"username\":\"<username>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Session Login Token",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username_or_email\": \"<username_or_email>\", \"password\": \"<password>\", \"subdomain\": \"<subdomain>\" }"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/login/auth",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"login",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Factor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"otp_token\": \"<otp_token>\",\n    \"device_id\": \"<device_id>\",\n    \"state_token\": \"<state_token>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/login/verify_factor",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"login",
+										"verify_factor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Session",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"session_token\":\"<session_token>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{subdomain}}.onelogin.com/session_via_api_token",
+									"protocol": "https",
+									"host": [
+										"{{subdomain}}",
+										"onelogin",
+										"com"
+									],
+									"path": [
+										"session_via_api_token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update a User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"lastname\":\"<lastname>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Roles for a User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"role_id_array\":[ <role_id> , <role_id> ]\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/add_roles",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"add_roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove Roles for a User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"role_id_array\":[ <role_id>, <role_id> ]\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/remove_roles",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"remove_roles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Password Using ID in Cleartext",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\"password\":\"<password>\",\n\"password_confirmation\":\"<password_confirmation>\"\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/set_password_clear_text/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"set_password_clear_text",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Password Using ID and SHA-256 and Salt",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\": \"<sha-256-hashed-password>\",\n    \"password_confirmation\": \"<sha-256-hashed-password-confirmation>\",\n    \"password_algorithm\": \"salt+sha256\",\n    \"password_salt\": \"<salt>\"\n  }"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/set_password_using_salt/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"set_password_using_salt",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Custom Attributes for User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"custom_attributes\":{\r\n      \"<custom_attribute_shortname1>\":\"<value>\",\r\n      \"<custom_attribute_shortname2>\":\"<value>\"\r\n   }\r\n}"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/set_custom_attributes",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"set_custom_attributes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Log User Out",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer: {{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/logout",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Lock User Account",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"locked_until\": <integer_in_minutes> }"
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/lock_user",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}",
+										"lock_user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a User",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer:{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"1",
+										"users",
+										"{{user_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
