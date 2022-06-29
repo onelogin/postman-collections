@@ -7787,258 +7787,56 @@
 					"name": "V2",
 					"item": [
 						{
-							"name": "Delete Variable",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/envs/:hook_env_var_id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										"envs",
-										":hook_env_var_id"
-									],
-									"variable": [
-										{
-											"key": "hook_env_var_id",
-											"value": "{{hook_env_var_id}}",
-											"description": "(Required) "
-										}
-									]
-								},
-								"description": "Delete Variable"
-							},
-							"response": [
+							"name": "Pre-Authentication Hook",
+							"item": [
 								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/envs/:hook_env_var_id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												"envs",
-												":hook_env_var_id"
-											],
-											"variable": [
-												{
-													"key": "hook_env_var_id",
-													"value": "{{hook_env_var_id}}",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
+									"name": "Create minimum viable function",
+									"event": [
 										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "List Variables",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/envs",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										"envs"
-									]
-								},
-								"description": "List Variables"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/envs",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												"envs"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "Update Variable",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "\"super-secret-updated\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/envs/:hook_env_var_id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										"envs",
-										":hook_env_var_id"
-									],
-									"variable": [
-										{
-											"key": "hook_env_var_id",
-											"value": "{{hook_env_var_id}}",
-											"description": "(Required) "
-										}
-									]
-								},
-								"description": "Update Variable"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "PUT",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "\"super-secret-updated\"",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(context);",
+													"    return {",
+													"        success: true,",
+													"        user: context.user",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
 											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/envs/:hook_env_var_id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												"envs",
-												":hook_env_var_id"
-											],
-											"variable": [
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
 												{
-													"key": "hook_env_var_id",
-													"value": "{{hook_env_var_id}}",
-													"description": "(Required) "
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
 												}
 											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "Create Variable",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "\"foobarbaz\"",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/envs",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										"envs"
-									]
-								},
-								"description": "Create Variable"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
+										},
 										"method": "POST",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "\"foobarbaz\"",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n    \"context_version\": \"1.1.0\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8046,197 +7844,69 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/envs",
+											"raw": "https://{{api-domain}}/api/2/hooks",
+											"protocol": "https",
 											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												"envs"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "List Hooks",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks"
-									]
-								},
-								"description": "List Hooks"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks",
-											"host": [
-												"{{baseUrl}}"
+												"{{api-domain}}"
 											],
 											"path": [
 												"api",
 												"2",
 												"hooks"
 											]
-										}
+										},
+										"description": "This function simply passes the user immediately back without making any changes to user policy. It is effectively a waste of time having a hook like this but it serves the purpose of showing what a minimum viable pre-authentication hook would look like."
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "Get Hook",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										":hook_id"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}",
-											"description": "(Required) "
-										}
-									]
+									"response": []
 								},
-								"description": "Get Hook"
-							},
-							"response": [
 								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												":hook_id"
-											],
-											"variable": [
+									"name": "Update minimum viable function",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(context);",
+													"    return {",
+													"        success: true,",
+													"        user: context.user",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
 												{
-													"key": "hook_id",
-													"value": "{{pre_authentication_hook_id}}",
-													"description": "(Required) "
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
 												}
 											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "Update Hook",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"disabled\": false,\n  \"env_vars\": [],\n  \"function\": \"{{base64Function}}\",\n  \"location_enabled\": false,\n  \"packages\": {},\n  \"retries\": 0,\n  \"risk_enabled\": false,\n  \"runtime\": \"nodejs12.x\",\n  \"timeout\": 1,\n  \"type\": \"pre-authentication\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"api",
-										"2",
-										"hooks",
-										":hook_id"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}",
-											"description": "(Required) "
-										}
-									]
-								},
-								"description": "Update Hook"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
+										},
 										"method": "PUT",
-										"header": [],
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"disabled\": false,\n  \"env_vars\": [],\n  \"function\": \"{{base64Function}}\",\n  \"location_enabled\": false,\n  \"packages\": {},\n  \"retries\": 0,\n  \"risk_enabled\": false,\n  \"runtime\": \"nodejs12.x\",\n  \"timeout\": 1,\n  \"type\": \"pre-authentication\"\n}",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1, \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -8244,9 +7914,10 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
 											"host": [
-												"{{baseUrl}}"
+												"{{api-domain}}"
 											],
 											"path": [
 												"api",
@@ -8257,35 +7928,2227 @@
 											"variable": [
 												{
 													"key": "hook_id",
-													"value": "{{pre_authentication_hook_id}}",
-													"description": "(Required) "
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This function simply passes the user immediately back without making any changes to user policy. It is effectively a waste of time having a hook like this but it serves the purpose of showing what a minimum viable pre-authentication hook would look like."
+									},
+									"response": []
+								},
+								{
+									"name": "Deny Access based on Country Code",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(\"Context \", context);",
+													"",
+													"    // Deny access",
+													"    if (context.location.country_code != \"NZ\") return { success: false, user: null };",
+													"    ",
+													"    return {",
+													"        success: true,",
+													"        user: context.user",
+													"    };",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": true,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
 												}
 											]
 										}
 									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
+									"response": []
+								},
+								{
+									"name": "Only Allow users from specific countries to login",
+									"event": [
 										{
-											"key": "Content-Type",
-											"value": "text/plain"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async context => {",
+													"  // A list of ISO 3166 Alpha 2 character country codes",
+													"  // https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2",
+													"  const ALLOWED_COUNTRY_CODES = [\"US\", \"NZ\"]",
+													"",
+													"  let allowAccess = ALLOWED_COUNTRY_CODES.includes(context.location.country_code);",
+													"",
+													"  return {",
+													"    success: allowAccess,",
+													"    user: context.user",
+													"  };",
+													"};",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
 									],
-									"cookie": [],
-									"body": ""
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This Smart Hook will block all users from logging in unless they come from one of the listed countries. "
+									},
+									"response": []
+								},
+								{
+									"name": "Require MFA based on Country Code",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(\"Context \", context);",
+													"    ",
+													"    var user = context.user;",
+													"    const policy_id = (context.location.country_code == \"NZ\") ? 135379 : user.policy_id",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: { ...user, policy_id }",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deny Access to IE 11",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"const parser = require('ua-parser-js');",
+													"",
+													"const isIe11 = ({ name, version }) => name == \"IE\" && version == \"11.0\";",
+													"",
+													"const ie11PolicyOverride = ({ user, device }) => {",
+													"    const { browser } = parser(device.user_agent);",
+													"    ",
+													"    if (isIe11(browser)) return { success: false, user: null };",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: user",
+													"    }",
+													"} ",
+													"",
+													"exports.handler = async (context) => {",
+													"    return ie11PolicyOverride(context);",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": true,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t\t\"ua-parser-js\": \"0.7.21\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This hook uses an NPM package to parse the user agent string and deny access based on the type of browser that has been used."
+									},
+									"response": []
+								},
+								{
+									"name": "Change User Policy based on Browser type",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"const parser = require('ua-parser-js');",
+													"",
+													"exports.handler = async (context) => {",
+													"    const { browser } = parser(context.device.user_agent);",
+													"    ",
+													"    let user = context.user;",
+													"",
+													"    // If the user has one of these browsers then change the User Policy",
+													"    // If they have a different browser then they will continue with their assigned User Policy",
+													"    switch (browser.name) {",
+													"        // case \"Edge\": ",
+													"        //     user.policy_id = 123456;",
+													"        //     break;",
+													"        // case \"Chrome\":",
+													"        //     user.policy_id = 123133;",
+													"        //     break;        ",
+													"        // case \"Firefox\":",
+													"        //     user.policy_id = 123123;",
+													"        //     break;        ",
+													"        // case \"Safari\":",
+													"        //     user.policy_id = 627214;",
+													"        //     break;        ",
+													"    }",
+													"",
+													"    console.log(\"User\", user);",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: user",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t\t\"ua-parser-js\": \"0.7.21\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This hook uses an NPM package to parse the user agent string and deny access based on the type of browser that has been used.\n\n* If the user has one of the defined browsers then change the User Policy. \n* If they have a browser that is not included in the list then they will continue with their assigned User Policy"
+									},
+									"response": []
+								},
+								{
+									"name": "Change User Policy for Mobile Devices",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(context);",
+													"",
+													"    const MOBILE_POLICY_ID = 90002;",
+													"",
+													"    let user = context.user;",
+													"    console.log(\"Users Assigned Policy ID is \" + user.policy_id);",
+													"",
+													"    if (context.device.is_mobile) {",
+													"        user.policy_id = MOBILE_POLICY_ID;",
+													"        console.log(\"Mobile device detected. Changing policy id to \" + user.policy_id);        ",
+													"    } ",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: user",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Post to Slack on High Risk",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"",
+													"const axios = require(\"axios\")",
+													"const RISK_THRESHOLD = 50;",
+													"",
+													"exports.handler = async context => {",
+													"  try {",
+													"      if (context.risk.score > RISK_THRESHOLD) {",
+													"          const payload = JSON.stringify({",
+													"              channel: \"#integrations\", ",
+													"              username: \"onelogin_hooks_bot\", ",
+													"              text: \"Eeek! High risk login (score: \" + context.risk.score + \")  detected for \" + context.user.user_identifier,     ",
+													"              icon_emoji: \":scream:\"",
+													"          });",
+													"",
+													"          const options = {",
+													"              headers: {",
+													"                  \"Content-Type\": \"application/x-www-form-urlencoded\" ",
+													"              }",
+													"          }",
+													"",
+													"          const response = await axios.post(process.env.SLACK_WEBHOOK_URL, payload, options);",
+													"          console.log(\"Response Status: \" + response.statusText);",
+													"          console.log(response.data);",
+													"      }",
+													"  }",
+													"  catch (error) {",
+													"      console.log(error.toJSON());",
+													"  }",
+													"",
+													"  return {",
+													"      success: true,",
+													"      user: context.user",
+													"  }",
+													"};",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n    \"context_version\": \"1.1.0\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": true\n    },  \n\t\"env_vars\": [\n        \"SLACK_WEBHOOK_URL\"\n\t],\n\t\"packages\": {\n        \"axios\": \"0.21.1\"        \n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Switch to Cisco AnyConnect policy based on User Agent",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"    const parser = require(\"ua-parser-js\");",
+													"",
+													"    const ANYCONNECT_POLICY_ID = 1234;",
+													"",
+													"    const anyconnectBrowser = [",
+													"        [/(AnyConnect)\\\\/(\\\\d+)(?:\\\\.(\\\\d+)|)(?:\\\\.(\\\\d+)|)/i],",
+													"        [parser.BROWSER.NAME, parser.BROWSER.VERSION]",
+													"    ];",
+													"",
+													"    const uaExtensions = { browser: anyconnectBrowser };",
+													"",
+													"    exports.handler = async context => {",
+													"        const ua = parser(context.device.user_agent, uaExtensions);",
+													"",
+													"        // Overrides the policy ID if the browser type is AnyConnect,",
+													"        // otherwise, use the default policy_id already assigned to the user",
+													"        const policy_id = ua.browser.name === 'AnyConnect'",
+													"            ? ANYCONNECT_POLICY_ID",
+													"            : context.user.policy_id;",
+													"",
+													"        return {",
+													"            success: true,",
+													"            user: { policy_id }",
+													"        };",
+													"    };",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n        \"ua-parser-js\": \"0.7.23\"        \n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This pre-authentication hook will look for a specific useragent string that is used by the Cisco Anypoint Connect VPN client and then force the user to switch to the defined user policy. \n\nSimply change the ANYCONNECT_POLICY_ID value to the ID of the user policy that you want to use. "
+									},
+									"response": []
+								},
+								{
+									"name": "Change User Policy by IP Range",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"    const ipRangeCheck = require(\"ip-range-check\");",
+													"",
+													"    // List of IPv4 or IPv6 CIDR ranges",
+													"    const IP_RANGES = [\"2001:0db8:85a3:0000:0000:8a2e:0370:7334\", \"2001:4860:4860::8888/32\", \"1.1.1.1\", \"192.168.1.2/24\"]",
+													"",
+													"    // The policy id to assign if the users ip falls into the IP_RANGES",
+													"    const TARGET_POLICY_ID = 8888;",
+													"",
+													"    exports.handler = async context => {",
+													"",
+													"    // Defaults to the policy id currently assigned to the user",
+													"    let policy_id_to_assign = context.user.policy_id;",
+													"",
+													"    try {",
+													"        if (ipRangeCheck(context.location.ip, IP_RANGES)){",
+													"            policy_id_to_assign = TARGET_POLICY_ID;",
+													"        }",
+													"    }",
+													"    catch (e) {",
+													"        console.log(\"Error checking ip range \", e);",
+													"    }",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: { ",
+													"            policy_id: policy_id_to_assign ",
+													"        }",
+													"    };",
+													"    };",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": true,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n        \"ip-range-check\": \"0.2.0\"     \n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "Use this pre-authentication hook to change a user policy based on the users IP address being included in an IPv4 or IPv6 CIDR range. "
+									},
+									"response": []
+								},
+								{
+									"name": "Require MFA every X number of days",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"const moment = require(\"moment\");",
+													"",
+													"// The policy ID to use for requiring an MFA device.",
+													"const MFA_POLICY_ID = 54321;",
+													"",
+													"// The maximum number of days that may be allowed before MFA needs to be reprompted",
+													"const DAYS_THRESHOLD = 30;",
+													"",
+													"const response = (policy_id) => {",
+													"  return {",
+													"    success: true,",
+													"    user: { policy_id }",
+													"  };",
+													"};",
+													"",
+													"exports.handler = async (context) => {",
+													"  if (context.mfa_devices.length === 0) {",
+													"    return response(context.user.policy_id);",
+													"  }  ",
+													"",
+													"  let mfaDevicesByUsageOrder = context.mfa_devices.sort(function(a,b){",
+													"    return new Date(b.last_used_at) - new Date(a.last_used_at);",
+													"  });  ",
+													"",
+													"  let days = moment.utc().diff(mfaDevicesByUsageOrder[0].last_used_at, 'days');",
+													"",
+													"  // Evaluate the number of days against the threshold",
+													"  if (days > DAYS_THRESHOLD) {",
+													"    return response(MFA_POLICY_ID);",
+													"  } else {",
+													"    return response(context.user.policy_id);",
+													"  }",
+													"};",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"context_version\": \"1.1.0\",\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": true\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n        \"moment\": \"2.29.1\"\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "Use this hook to require users to perform MFA every X number of days."
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password after X without logging in",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"    // The policy id to assign if the users has not logged in for X days",
+													"    const TARGET_POLICY_ID = 88888;",
+													"",
+													"    // User will be forced to change password after this many days",
+													"    const NUMBER_OF_DAYS_SINCE_LAST_LOGIN = 30",
+													"",
+													"    exports.handler = async context => {",
+													"        let policy_id_to_assign = context.user.policy_id; // Defaults to users assigned policy ",
+													"",
+													"        if(context.user.last_login_success){",
+													"            let today = new Date();",
+													"            let change_policy_date = new Date().setDate(today.getDate() - NUMBER_OF_DAYS_SINCE_LAST_LOGIN);",
+													"            let last_login_date = new Date(context.user.last_login_success);",
+													"        ",
+													"            if(last_login_date < change_policy_date) {",
+													"                policy_id_to_assign = TARGET_POLICY_ID;",
+													"            }",
+													"        }",
+													"",
+													"        return {",
+													"            success: true,",
+													"            user: { ",
+													"                policy_id: policy_id_to_assign ",
+													"            }",
+													"        };",
+													"    };",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\": \"pre-authentication\",\n    \"context_version\": \"1.1.0\",\n    \"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n    \"retries\": 0,\n    \"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n    \"function\": \"{{base64Function}}\",\n    \"env_vars\": [],\n    \"packages\": {\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "This hook example requires that a User Policy has been configured with a Maximum Password Age of 1 day. This will be consider as the Password Reset policy. \n\nIf they user has not logged in for X number of days then the user will be switched to the Password Reset policy and prompted to change their password."
+									},
+									"response": []
+								},
+								{
+									"name": "Change User Policy based on High Risk",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"exports.handler = async (context) => {",
+													"    console.log(context);",
+													"",
+													"    const POLICY_ID = 90002;",
+													"    const RISK_THRESHOLD = 90;",
+													"",
+													"    let user = context.user;",
+													"    console.log(\"Users Assigned Policy ID is \" + user.policy_id);",
+													"",
+													"    if (context.risk.score > RISK_THRESHOLD) {",
+													"        user.policy_id = POLICY_ID;",
+													"        console.log(\"High risk detected. Changing policy id to \" + user.policy_id);        ",
+													"    } ",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: user",
+													"    }",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": true,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Change User Policy based on MFA Enrollment",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"// If the user has this MFA factor registered then we will change to a policy ",
+													"// that forces them to use it. ",
+													"const MFA_DEVICE_USER_DISPLAY_NAME = 'OneLogin SMS';",
+													"",
+													"// The policy ID that forces them to use the factor named above.",
+													"const MFA_POLICY_ID = 54321;",
+													"",
+													"const response = function (success, policy_id){",
+													"  return {",
+													"    success: success,",
+													"    user: { ",
+													"      policy_id ",
+													"    }",
+													"  }",
+													"};",
+													"",
+													"exports.handler = async context => {",
+													"  try {",
+													"    if (context.mfa_devices.length === 0) {",
+													"      return response(true, context.user.policy_id);",
+													"    }",
+													"  ",
+													"    const device = context.mfa_devices.find( ({ user_display_name }) => user_display_name === MFA_DEVICE_USER_DISPLAY_NAME );",
+													"",
+													"    if(device){",
+													"      return response(true, MFA_POLICY_ID);",
+													"    }",
+													"  ",
+													"    return response(true, context.user.policy_id);",
+													"",
+													"  } catch (error) {",
+													"    console.log(error);",
+													"    return response(false, context.user.policy_id);",
+													"  }",
+													"};   ",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"context_version\": \"1.1.0\",\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": true\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										},
+										"description": "Use this hook example to change the user policy based on a specific MFA device being registered. "
+									},
+									"response": []
+								},
+								{
+									"name": "Change Policy for New Users",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"const functionString = `",
+													"",
+													"const NEW_USER_POLICY_ID = 12345;",
+													"",
+													"exports.handler = async (context) => {",
+													"    console.log(context);",
+													"",
+													"    let policy_id = context.user.policy_id;",
+													"",
+													"    if (!context.user.last_login_success) {",
+													"        policy_id = NEW_USER_POLICY_ID",
+													"    }",
+													"",
+													"    return {",
+													"        success: true,",
+													"        user: {",
+													"            policy_id: policy_id",
+													"        }  ",
+													"    };",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n    \"context_version\": \"1.1.0\",\n\t\"retries\": 0,\n\t\"timeout\": 1, \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": ""
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Switch policy to allow MFA Enrollment",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"// If they dont have any MFA devices registered then switch them to this policy",
+													"const MFA_POLICY_ID = 54321;",
+													"",
+													"const response = function (success, policy_id){",
+													"  return {",
+													"    success: success,",
+													"    user: { ",
+													"      policy_id ",
+													"    }",
+													"  }",
+													"};",
+													"",
+													"exports.handler = async context => {",
+													"  try {",
+													"    if (context.mfa_devices.length === 0) {",
+													"      return response(true, MFA_POLICY_ID);",
+													"    }",
+													"  ",
+													"    return response(true, context.user.policy_id);",
+													"",
+													"  } catch (error) {",
+													"    console.log(error);",
+													"    return response(false, context.user.policy_id);",
+													"  }",
+													"};   ",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"context_version\": \"1.1.0\",\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": true\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"description": "The `pre-authentication` hook runs synchronously as part of a UI based login flow. The hook fires immediately after the user enters a username/email but before they enter their password or are prompted for multi-factor authentication.",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
 								}
 							]
 						},
 						{
-							"name": "Delete Hook",
+							"name": "User-Migration Hook",
+							"item": [
+								{
+									"name": "Migrate user via external API",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"const axios = require(\"axios\");",
+													"",
+													"const AUTHENTICATION_API_ENDPOINT = \"https://example.com/auth\";",
+													"const AUTHENTICATION_API_BEARER_TOKEN = \"your-access-token-here\";",
+													"",
+													"exports.handler = async (context) => {",
+													"    // Its not considered good practice to log the user context on ",
+													"    // this hook as it contains a password. Only enable this for debugging",
+													"    // console.log(context);",
+													"",
+													"    let user;",
+													"",
+													"    try {",
+													"        const response = await axios.post(AUTHENTICATION_API_ENDPOINT, {",
+													"            username: context.user_identifier,",
+													"            password: context.password",
+													"        }, {",
+													"            headers: { ",
+													"                \"Authorization\": \"Bearer \" + AUTHENTICATION_API_BEARER_TOKEN",
+													"            }",
+													"        });",
+													"        console.log(response.data);",
+													"",
+													"        if (response.data) {",
+													"            // Success - Create the user",
+													"            return {",
+													"                success: true,",
+													"                user: {",
+													"                    username: context.user_identifier,",
+													"                    password: context.password,",
+													"                    firstname: response.data.firstname,",
+													"                    lastname: response.data.lastname,",
+													"                    email: response.data.email",
+													"                }",
+													"            };            ",
+													"        } ",
+													"    }",
+													"    catch (error) {",
+													"        console.log(\"Error authenticating user \", error);         ",
+													"    }  ",
+													"",
+													"    // Fail closed. Dont create the user. Deny access",
+													"    return {",
+													"        success: false,",
+													"        user: {}",
+													"    }     ",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"user-migration\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"context_version\": \"1.0.0\",\n\t\"retries\": 0,\n    \"runtime\": \"nodejs12.x\",\n\t\"timeout\": 10,\n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n        \"axios\": \"0.21.1\"\n\t}   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks"
+											]
+										},
+										"description": "This User-Migration Smart Hook example shows how you can connect to an external API to verify a usernames/password and extract information about the user. \n\nThis example can be easily adjusted to work with most user validation APIs."
+									},
+									"response": []
+								},
+								{
+									"name": "Migrate user from Auth0",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"const axios = require(\"axios\");",
+													"const jwt = require('jsonwebtoken');",
+													"const jwksClient = require('jwks-rsa');",
+													"",
+													"function getKey(header, callback){",
+													"  var client = jwksClient({",
+													"    jwksUri: \"https://\" + process.env.AUTH0_SUBDOMAIN + \".auth0.com/.well-known/jwks.json\"",
+													"  });",
+													"",
+													"  client.getSigningKey(header.kid, function(err, key) {",
+													"    var signingKey = key.publicKey || key.rsaPublicKey;",
+													"    callback(null, signingKey);",
+													"  });",
+													"}",
+													"",
+													"async function verifyJWT(token) {",
+													"  return new Promise(",
+													"    (resolve, reject) => {",
+													"      jwt.verify(token, getKey, {}, function(err, decoded) {",
+													"        resolve(decoded)",
+													"      });      ",
+													"    }",
+													"  );",
+													"}",
+													"",
+													"exports.handler = async (context) => {",
+													"    // Its not considered good practice to log the user context on ",
+													"    // this hook as it contains a password. Only enable this for debugging",
+													"    // console.log(context);",
+													"",
+													"    let user;",
+													"",
+													"    try {",
+													"      // Do a password grant request to validate the password",
+													"      const response = await axios.post(\"https://\" + process.env.AUTH0_SUBDOMAIN + \".auth0.com/oauth/token\", {",
+													"          grant_type: \"password\",",
+													"          username: context.user_identifier,",
+													"          password: context.password,",
+													"          scope: \"openid\",",
+													"          client_id: process.env.AUTH0_CLIENT_ID,",
+													"          client_secret: process.env.AUTH0_CLIENT_SECRET",
+													"      }, {",
+													"          headers: { ",
+													"              \"Content-Type\": \"application/json\"",
+													"          }",
+													"      });",
+													"      // console.log(response);",
+													"",
+													"      if (response.data) {",
+													"        let decodedToken = await verifyJWT(response.data.id_token);",
+													"        console.log(decodedToken);",
+													"",
+													"        let name = decodedToken.name.split(\" \");",
+													"",
+													"        return {",
+													"          success: true,",
+													"          user: {",
+													"            username: context.user_identifier,",
+													"            password: context.password,",
+													"            firstname: name.shift(),",
+													"            lastname: name.join(\" \"),",
+													"            email: decodedToken.email",
+													"          }",
+													"        };          ",
+													"      }",
+													"    }",
+													"    catch (error) {",
+													"        console.log(\"Error authenticating user \", error);         ",
+													"    }  ",
+													"    ",
+													"    // Fail closed. Dont create the user. Deny access",
+													"    return {",
+													"        success: false,",
+													"        user: {}",
+													"    }       ",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"user-migration\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"context_version\": \"1.0.0\",\n\t\"retries\": 0,\n    \"runtime\": \"nodejs12.x\",\n\t\"timeout\": 10,\n\t\"env_vars\": [\n        \"AUTH0_SUBDOMAIN\",\n        \"AUTH0_CLIENT_ID\",\n        \"AUTH0_CLIENT_SECRET\"\n\t],\n\t\"packages\": {\n        \"axios\": \"0.21.1\",\n        \"jwks-rsa\": \"2.0.1\",\n        \"jsonwebtoken\": \"8.5.1\"\n\t}   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks"
+											]
+										},
+										"description": "This user-migration hook lets you import users into OneLogin from an Auth0 account. \n\nIf the user is not found in OneLogin then this hook is triggered which will make a call out to Auth0 to validate the users password. \n\nIf the password is valid then user details are returned, the user is created in OneLogin and the authentication is completed."
+									},
+									"response": []
+								},
+								{
+									"name": "Migrate user from AWS Cognito",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"const axios = require(\"axios\");",
+													"const jwt = require('jsonwebtoken');",
+													"const jwksClient = require('jwks-rsa');",
+													"",
+													"",
+													"function getKey(header, callback){",
+													"  var client = jwksClient({",
+													"    jwksUri: \"https://cognito-idp.\" + process.env.AWSREGION + \".amazonaws.com/\" + process.env.AWS_USERPOOLID + \"/.well-known/jwks.json\"",
+													"  });",
+													"",
+													"  client.getSigningKey(header.kid, function(err, key) {",
+													"    var signingKey = key.publicKey || key.rsaPublicKey;",
+													"    callback(null, signingKey);",
+													"  });",
+													"}",
+													"",
+													"async function verifyJWT(token) {",
+													"  return new Promise(",
+													"    (resolve, reject) => {",
+													"      jwt.verify(token, getKey, {}, function(err, decoded) {",
+													"        resolve(decoded)",
+													"      });      ",
+													"    }",
+													"  );",
+													"}",
+													"",
+													"exports.handler = async (context) => {",
+													"    // Its not considered good practice to log the user context on ",
+													"    // this hook as it contains a password. Only enable this for debugging",
+													"    // console.log(context);",
+													"",
+													"    let user;",
+													"    try {",
+													"      // Do a password grant request to validate the password",
+													"      const response = await axios.post(\"https://cognito-idp.\" + process.env.AWSREGION + \".amazonaws.com/\" , {",
+													"        AuthFlow: 'USER_PASSWORD_AUTH',",
+													"        ClientId: process.env.AWS_CLIENT_ID,",
+													"        AuthParameters: {",
+													"            USERNAME: context.user_identifier,",
+													"            PASSWORD: context.password",
+													"        }",
+													"      }, {",
+													"          headers: { ",
+													"              \"Content-Type\": \"application/x-amz-json-1.1\",",
+													"              \"X-Amz-Target\": \"AWSCognitoIdentityProviderService.InitiateAuth\"",
+													"          }",
+													"      });",
+													"      console.log(response);",
+													"    if (response.data.AuthenticationResult) {",
+													"        let decodedToken = await verifyJWT(response.data.AuthenticationResult.IdToken);",
+													"        console.log(decodedToken);",
+													"",
+													"        return {",
+													"          success: true,",
+													"          user: {",
+													"            username: context.user_identifier,",
+													"            password: context.password,",
+													"            firstname: decodedToken.given_name,",
+													"            lastname: decodedToken.family_name,",
+													"            email: decodedToken.email",
+													"          }",
+													"        };          ",
+													"      }",
+													"    }",
+													"    catch (error) {",
+													"        console.log(\"Error authenticating user \", error);         ",
+													"    }  ",
+													"    ",
+													"    // Fail closed. Dont create the user. Deny access",
+													"    return {",
+													"        success: false,",
+													"        user: {}",
+													"    }       ",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"user-migration\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"context_version\": \"1.0.0\",\n\t\"retries\": 0,\n    \"runtime\": \"nodejs12.x\",\n\t\"timeout\": 10,\n\t\"env_vars\": [\n        \"AWS_USERPOOLID\",\n        \"AWS_CLIENT_ID\",\n        \"AWSREGION\"\n\t],\n\t\"packages\": {\n        \"axios\": \"0.21.1\",\n        \"jwks-rsa\": \"2.0.1\",\n        \"jsonwebtoken\": \"8.5.1\"\n\t}   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks"
+											]
+										},
+										"description": "This user-migration hook lets you import users into OneLogin from an AWS Cognito user pool. \n\nIf the user is not found in OneLogin then this hook is triggered which will make a call out to the Cognito API to validate the users password. \n\nIf the password is valid then user details are returned, the user is created in OneLogin and the authentication is completed. "
+									},
+									"response": []
+								},
+								{
+									"name": "Migrate user from Okta",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const functionString = `",
+													"const axios = require(\"axios\");",
+													"",
+													"",
+													"exports.handler = async (context) => {",
+													"    // Its not considered good practice to log the user context on ",
+													"    // this hook as it contains a password. Only enable this for debugging",
+													"    // console.log(context);",
+													"",
+													"    let user;",
+													"",
+													"    try {",
+													"      // Do a password grant request to validate the password",
+													"      const response = await axios.post(\"https://\" + process.env.OKTA_SUBDOMAIN + \".okta.com/api/v1/authn\", {",
+													"          username: context.user_identifier,",
+													"          password: context.password,",
+													"          options: {",
+													"              multiOptionalFactorEnroll: false,",
+													"              warnBeforePasswordExpired: false",
+													"          } ",
+													"      }, {",
+													"          headers: { ",
+													"              \"Content-Type\": \"application/json\",",
+													"              \"Accept\": \"application/json\"",
+													"          }",
+													"      });",
+													"      console.log(response);",
+													"",
+													"      if (response.data) {",
+													"",
+													"        return {",
+													"          success: true,",
+													"          user: {",
+													"            username: context.user_identifier,",
+													"            password: context.password,",
+													"            firstname: response.data._embedded.user.profile.firstName,",
+													"            lastname: response.data._embedded.user.profile.lastName,",
+													"            email: response.data._embedded.user.profile.login",
+													"          }",
+													"        };          ",
+													"      }",
+													"    }",
+													"    catch (error) {",
+													"        console.log(\"Error authenticating user \", error);         ",
+													"    }  ",
+													"    ",
+													"    // Fail closed. Dont create the user. Deny access",
+													"    return {",
+													"        success: false,",
+													"        user: {}",
+													"    }       ",
+													"}",
+													"`;",
+													"",
+													"const b64function = Buffer.from(functionString).toString('base64');",
+													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"type\": \"user-migration\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"context_version\": \"1.0.0\",\n\t\"retries\": 0,\n    \"runtime\": \"nodejs12.x\",\n\t\"timeout\": 10,\n\t\"env_vars\": [\n        \"OKTA_SUBDOMAIN\"\n\t],\n\t\"packages\": {\n        \"axios\": \"0.21.1\",\n        \"jwks-rsa\": \"2.0.1\",\n        \"jsonwebtoken\": \"8.5.1\"\n\t}   \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks"
+											]
+										},
+										"description": "This user-migration hook lets you import users into OneLogin from an Okta account. \n\nIf the user is not found in OneLogin then this hook is triggered which will make a call out to Okta to validate the users password. \n\nIf the password is valid then user details are returned, the user is created in OneLogin and the authentication is completed. "
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Environment Variables",
+							"item": [
+								{
+									"name": "List Variables",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/envs",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												"envs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Variable",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", function () {",
+													"    pm.response.to.have.status(201);",
+													"});",
+													"",
+													"if (pm.response.json().id) {",
+													"    postman.setEnvironmentVariable(\"hook_envvar_id\", pm.response.json().id);",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"name\": \"MY_API_KEY\",\n\t\"value\": \"foobarbaz\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/envs",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												"envs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update Variable",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"value\": \"super-secret-updated\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/envs/:hook_env_var_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												"envs",
+												":hook_env_var_id"
+											],
+											"variable": [
+												{
+													"key": "hook_env_var_id",
+													"value": "{{hook_env_var_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Variable",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{access_token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/envs/:hook_env_var_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												"envs",
+												":hook_env_var_id"
+											],
+											"variable": [
+												{
+													"key": "hook_env_var_id",
+													"value": "{{hook_env_var_id}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "List Hooks",
 							"request": {
-								"method": "DELETE",
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
+									"raw": "https://{{api-domain}}/api/2/hooks",
+									"protocol": "https",
 									"host": [
-										"{{baseUrl}}"
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"hooks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Hook",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"",
+											"const functionString = `",
+											"exports.handler = async (context) => {",
+											"    return {",
+											"        user: context.user",
+											"    }",
+											"}",
+											"`;",
+											"",
+											"const b64function = Buffer.from(functionString).toString('base64');",
+											"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/hooks",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
+									],
+									"path": [
+										"api",
+										"2",
+										"hooks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Hook",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Response visualizer for showing hook content",
+											"const response = {",
+											"    ...pm.response.json(),",
+											"    function: Buffer(pm.response.json().function, 'base64').toString()",
+											"};",
+											"pm.visualizer.set(",
+											"    '<p>Function Content<p><pre><code class=\"javascript\">{{response.function}}</code></pre>',",
+											"    { response }",
+											");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
 									],
 									"path": [
 										"api",
@@ -8296,62 +10159,33 @@
 									"variable": [
 										{
 											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}",
-											"description": "(Required) "
+											"value": "{{pre_authentication_hook_id}}"
 										}
 									]
-								},
-								"description": "Delete Hook"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/:hook_id",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												":hook_id"
-											],
-											"variable": [
-												{
-													"key": "hook_id",
-													"value": "{{pre_authentication_hook_id}}",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
 								}
-							]
+							},
+							"response": []
 						},
 						{
 							"name": "Get Hook Logs",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks/:hook_id/logs",
+									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id/logs",
+									"protocol": "https",
 									"host": [
-										"{{baseUrl}}"
+										"{{api-domain}}"
 									],
 									"path": [
 										"api",
@@ -8363,116 +10197,123 @@
 									"variable": [
 										{
 											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}",
-											"description": "(Required) "
+											"value": "{{pre_authentication_hook_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Hook",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
 										}
 									]
 								},
-								"description": "Get Hook Logs"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks/:hook_id/logs",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks",
-												":hook_id",
-												"logs"
-											],
-											"variable": [
-												{
-													"key": "hook_id",
-													"value": "{{pre_authentication_hook_id}}",
-													"description": "(Required) "
-												}
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
-									],
-									"cookie": [],
-									"body": ""
-								}
-							]
-						},
-						{
-							"name": "Create Hook",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "text/plain"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "\"{\\n\\t\\\"type\\\": \\\"pre-authentication\\\",\\n\\t\\\"function\\\": \\\"{{base64Function}}\\\",\\n\\t\\\"disabled\\\": false,\\n    \\\"runtime\\\": \\\"nodejs12.x\\\",\\n\\t\\\"retries\\\": 0,\\n\\t\\\"timeout\\\": 1,\\n\\t\\\"risk_enabled\\\": false,\\n\\t\\\"location_enabled\\\": false,\\n    \\\"mfa_device_info_enabled\\\": true,\\n\\t\\\"env_vars\\\": [\\n\\t],\\n\\t\\\"packages\\\": {\\n\\t},\\n}\""
-								},
+								"method": "DELETE",
+								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/api/2/hooks",
+									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"protocol": "https",
 									"host": [
-										"{{baseUrl}}"
+										"{{api-domain}}"
 									],
 									"path": [
 										"api",
 										"2",
-										"hooks"
+										"hooks",
+										":hook_id"
+									],
+									"variable": [
+										{
+											"key": "hook_id",
+											"value": "{{pre_authentication_hook_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Hook",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"",
+											"const functionString = `",
+											"exports.handler = async (context) => {",
+											"    return {",
+											"        user: context.user",
+											"    }",
+											"}",
+											"`;",
+											"",
+											"const b64function = Buffer.from(functionString).toString('base64');",
+											"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{access_token}}",
+											"type": "string"
+										}
 									]
 								},
-								"description": "Create Hook"
-							},
-							"response": [
-								{
-									"name": "Untitled Example",
-									"originalRequest": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "\"{\\n\\t\\\"type\\\": \\\"pre-authentication\\\",\\n\\t\\\"function\\\": \\\"{{base64Function}}\\\",\\n\\t\\\"disabled\\\": false,\\n    \\\"runtime\\\": \\\"nodejs12.x\\\",\\n\\t\\\"retries\\\": 0,\\n\\t\\\"timeout\\\": 1,\\n\\t\\\"risk_enabled\\\": false,\\n\\t\\\"location_enabled\\\": false,\\n    \\\"mfa_device_info_enabled\\\": true,\\n\\t\\\"env_vars\\\": [\\n\\t],\\n\\t\\\"packages\\\": {\\n\\t},\\n}\""
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/2/hooks",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"2",
-												"hooks"
-											]
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"type\": \"pre-authentication\",\n\t\"function\": \"{{base64Function}}\",\n\t\"disabled\": false,\n    \"runtime\": \"nodejs12.x\",\n\t\"retries\": 0,\n\t\"timeout\": 1,\n    \"options\":{\n\t    \"risk_enabled\": false,\n    \t\"location_enabled\": false,\n        \"mfa_device_info_enabled\": false\n    },  \n\t\"env_vars\": [\n\t],\n\t\"packages\": {\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [
-										{
-											"key": "Content-Type",
-											"value": "text/plain"
-										}
+									}
+								},
+								"url": {
+									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"protocol": "https",
+									"host": [
+										"{{api-domain}}"
 									],
-									"cookie": [],
-									"body": ""
+									"path": [
+										"api",
+										"2",
+										"hooks",
+										":hook_id"
+									],
+									"variable": [
+										{
+											"key": "hook_id",
+											"value": "{{pre_authentication_hook_id}}"
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						}
 					]
 				}
