@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b50876b3-b58f-49a6-884a-ec284a6a9675",
+		"_postman_id": "77bb8d0c-18a4-47a4-8ba1-392d50f30ffd",
 		"name": "OneLogin API Definitive",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "20762171"
@@ -10322,10 +10322,6 @@
 		{
 			"name": "Smart MFA",
 			"item": [
-				{
-					"name": "V1",
-					"item": []
-				},
 				{
 					"name": "V2",
 					"item": [
