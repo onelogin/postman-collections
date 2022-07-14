@@ -1275,16 +1275,6 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{access_token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -1389,6 +1379,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{client_id}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1514,6 +1519,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{client_id}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -1541,21 +1561,6 @@
 					"response": []
 				}
 			],
-			"auth": {
-				"type": "basic",
-				"basic": [
-					{
-						"key": "password",
-						"value": "{{client_secret}}",
-						"type": "string"
-					},
-					{
-						"key": "username",
-						"value": "{{client_id}}",
-						"type": "string"
-					}
-				]
-			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -1613,6 +1618,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"// For Convenience",
+													"var jsonData = JSON.parse(responseBody);",
 													"postman.setEnvironmentVariable(\"api_auth_id\", jsonData.id);"
 												],
 												"type": "text/javascript"
@@ -1630,7 +1637,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is an api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 10,\n      \"refresh_token_expiration_minutes\": 30\n    }\n}"
+											"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is a sample api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 10,\n      \"refresh_token_expiration_minutes\": 30\n    }\n}"
 										},
 										"url": {
 											"raw": "https://{{api-domain}}/api/2/api_authorizations",
@@ -1687,7 +1694,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is an api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 15,\n      \"refresh_token_expiration_minutes\": 35\n    }\n}"
+											"raw": " {\n    \"name\": \"Contacts API\",\n    \"description\": \"This is an updated sample api\",\n    \"configuration\": {\n      \"resource_identifier\": \"http://myapi.com/contacts2\",\n      \"audiences\": [\"http://myapi.com/contacts2\"],\n      \"access_token_expiration_minutes\": 15,\n      \"refresh_token_expiration_minutes\": 35\n    }\n}"
 										},
 										"url": {
 											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}",
@@ -1772,6 +1779,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"// For Convenience",
+													"var jsonData = JSON.parse(responseBody);",
 													"postman.setEnvironmentVariable(\"claim_id\", jsonData.id);"
 												],
 												"type": "text/javascript"
@@ -1910,6 +1919,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"// For Convenience",
+													"var jsonData = JSON.parse(responseBody);",
 													"postman.setEnvironmentVariable(\"scope_id\", jsonData.id);"
 												],
 												"type": "text/javascript"
@@ -2048,6 +2059,8 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"// For Convenience",
+													"var jsonData = JSON.parse(responseBody);",
 													"postman.setEnvironmentVariable(\"client_app_id\", jsonData.id);"
 												],
 												"type": "text/javascript"
@@ -2065,7 +2078,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n\t\"app_id\": 1026152,\n\t\"scopes\": [31]\n}"
+											"raw": "{\n\t\"app_id\": {{app_id}},\n\t\"scopes\": [31]\n}"
 										},
 										"url": {
 											"raw": "https://{{api-domain}}/api/2/api_authorizations/{{api_auth_id}}/clients",
@@ -4697,7 +4710,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"factor_id\": {{factor_id}},\n  \"display_name\":  \"{{name_for_the_factor}}\",\n  \"number\": \"{{phone_number}}\"\n}"
+									"raw": "{\n  \"factor_id\": {{factor_id}},\n  \"display_name\":  \"Sample Factor\",\n  \"number\": \"5558675309\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}/otp_devices",
@@ -4969,7 +4982,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"factor_id\": \"82385\",\n    \"display_name\": \"Blargh\"\n}"
+									"raw": "{\n    \"factor_id\": {{factor_id}},\n    \"display_name\": \"Sample Device Name\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/2/mfa/users/{{user_id}}/registrations",
@@ -5202,6 +5215,19 @@
 						},
 						{
 							"name": "get user registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// For Convenience",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"device_id\", jsonData.device_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -6389,7 +6415,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"app_id\": \"{{app_id}}\",\n    \"password\": \"{{password}}\",\n    \"subdomain\": \"{{subdomain}}\",\n    \"username_or_email\": \"{{username_or_email}}\"\n}",
+									"raw": "{\n    \"app_id\": \"{{app_id}}\",\n    \"password\": \"<password of the user accessing the app>\",\n    \"subdomain\": \"{{subdomain}}\",\n    \"username_or_email\": \"<Username or email of the user accessing the app>\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7040,7 +7066,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username_or_email\": \"{{username_or_email}}\",\n    \"password\": \"{{password}}\",\n    \"app_id\": \"{{app_id}}\",\n    \"subdomain\":\"{{subdomain}}\"\n}"
+									"raw": "{\n    \"app_id\": \"{{app_id}}\",\n    \"password\": \"<password of the user accessing the app>\",\n    \"subdomain\": \"{{subdomain}}\",\n    \"username_or_email\": \"<Username or email of the user accessing the app>\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/2/saml_assertion",
@@ -7120,6 +7146,18 @@
 													"",
 													"const b64function = Buffer.from(functionString).toString('base64');",
 													"postman.setEnvironmentVariable(\"base64Function\", b64function);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// For Convenience",
+													"var jsonData = JSON.parse(responseBody);",
+													"postman.setEnvironmentVariable(\"pre_authentication_hook_id\", jsonData.id);",
 													""
 												],
 												"type": "text/javascript"
@@ -8459,6 +8497,33 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Delete Pre-Auth Hook",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+											"protocol": "https",
+											"host": [
+												"{{api-domain}}"
+											],
+											"path": [
+												"api",
+												"2",
+												"hooks",
+												":hook_id"
+											],
+											"variable": [
+												{
+													"key": "hook_id",
+													"value": "{{pre_authentication_hook_id}}"
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							],
 							"description": "The `pre-authentication` hook runs synchronously as part of a UI based login flow. The hook fires immediately after the user enters a username/email but before they enter their password or are prompted for multi-factor authentication.",
@@ -9119,7 +9184,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"raw": "https://{{api-domain}}/api/2/hooks/{{hook_id}}",
 									"protocol": "https",
 									"host": [
 										"{{api-domain}}"
@@ -9128,13 +9193,7 @@
 										"api",
 										"2",
 										"hooks",
-										":hook_id"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}"
-										}
+										"{{hook_id}}"
 									]
 								}
 							},
@@ -9146,7 +9205,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id/logs",
+									"raw": "https://{{api-domain}}/api/2/hooks/{{hook_id}}/logs",
 									"protocol": "https",
 									"host": [
 										"{{api-domain}}"
@@ -9155,14 +9214,8 @@
 										"api",
 										"2",
 										"hooks",
-										":hook_id",
+										"{{hook_id}}",
 										"logs"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}"
-										}
 									]
 								}
 							},
@@ -9187,6 +9240,17 @@
 											"const b64function = Buffer.from(functionString).toString('base64');",
 											"postman.setEnvironmentVariable(\"base64Function\", b64function);",
 											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// For Convenience",
+											"var jsonData = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"hook_id\", jsonData.id);"
 										],
 										"type": "text/javascript"
 									}
@@ -9268,7 +9332,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"raw": "https://{{api-domain}}/api/2/hooks/{{hook_id}}",
 									"protocol": "https",
 									"host": [
 										"{{api-domain}}"
@@ -9277,13 +9341,7 @@
 										"api",
 										"2",
 										"hooks",
-										":hook_id"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}"
-										}
+										"{{hook_id}}"
 									]
 								}
 							},
@@ -9295,7 +9353,7 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "https://{{api-domain}}/api/2/hooks/:hook_id",
+									"raw": "https://{{api-domain}}/api/2/hooks/{{hook_id}}",
 									"protocol": "https",
 									"host": [
 										"{{api-domain}}"
@@ -9304,13 +9362,7 @@
 										"api",
 										"2",
 										"hooks",
-										":hook_id"
-									],
-									"variable": [
-										{
-											"key": "hook_id",
-											"value": "{{pre_authentication_hook_id}}"
-										}
+										"{{hook_id}}"
 									]
 								}
 							},
@@ -9663,7 +9715,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"firstname\":\"<firstname>\",\n  \"lastname\":\"<lastname>\",\n  \"email\":\"<email>\",\n  \"username\":\"<username>\"\n}"
+									"raw": "{\n  \"firstname\":\"Sample\",\n  \"lastname\":\"Sampleton\",\n  \"email\":\"<email>\",\n  \"username\":\"sampleuser\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/1/users",
@@ -9755,12 +9807,10 @@
 									"raw": "{\n  \"session_token\":\"<session_token>\"\n}"
 								},
 								"url": {
-									"raw": "https://{{api-domain}}.onelogin.com/session_via_api_token",
+									"raw": "https://{{api-domain}}/session_via_api_token",
 									"protocol": "https",
 									"host": [
-										"{{api-domain}}",
-										"onelogin",
-										"com"
+										"{{api-domain}}"
 									],
 									"path": [
 										"session_via_api_token"
@@ -9781,7 +9831,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"lastname\":\"<lastname>\"\n}"
+									"raw": "{\n  \"lastname\":\"Updated-Name\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/1/users/{{user_id}}",
@@ -10268,7 +10318,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"firstname\": \"Steve\",\n  \"lastname\": \"Smith\",\n  \"username\": \"steve.smith\",\n  \"password\": \"partytime123\",\n  \"password_confirmation\": \"partytime123\"\n}"
+									"raw": "{\n  \"firstname\": \"Example\",\n  \"lastname\": \"Examplar\",\n  \"username\": \"example.user\",\n  \"password\": \"userpass123\",\n  \"password_confirmation\": \"userpass123\"\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/2/users",
@@ -10530,7 +10580,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"My Second Mapping\",\n    \"match\": \"all\",\n    \"enabled\": true,\n    \"position\": 1,\n    \"conditions\": [\n        {\n            \"source\": \"last_login\",\n            \"operator\": \">\",\n            \"value\": \"90\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_status\",\n            \"value\": \"2\"\n        }\n    ]\n}"
+									"raw": "{\n    \"name\": \"My Updated Mapping\",\n    \"match\": \"all\",\n    \"enabled\": true,\n    \"position\": 1,\n    \"conditions\": [\n        {\n            \"source\": \"last_login\",\n            \"operator\": \">\",\n            \"value\": \"90\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"action\": \"set_status\",\n            \"value\": \"2\"\n        }\n    ]\n}"
 								},
 								"url": {
 									"raw": "https://{{api-domain}}/api/2/mappings/{{mapping_id}}",
@@ -10982,7 +11032,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"description\": \"Block access for users in these countries\",\n  \"filters\": [\n    \"NZ\",\n    \"AU\"\n  ],\n  \"name\": \"Geoblock\",\n  \"source\": null,\n  \"target\": \"location.address.country_iso_code\",\n  \"type\": \"blacklist\"\n}",
+									"raw": "{\n  \"description\": \"Block access for users in these countries\",\n  \"filters\": [\n    \"NZ\",\n    \"AU\"\n  ],\n  \"name\": \"Geoblock Example\",\n  \"source\": null,\n  \"target\": \"location.address.country_iso_code\",\n  \"type\": \"blacklist\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
