@@ -6140,7 +6140,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[60231059, 60231067]",
+									"raw": "[{{user_id}}]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6190,7 +6190,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[60231067]",
+									"raw": "[{{user_id}}]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6275,7 +6275,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[36216766]",
+									"raw": "[{{user_id}}]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6325,7 +6325,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "[36216766]",
+									"raw": "[{{user_id}}]",
 									"options": {
 										"raw": {
 											"language": "json"
